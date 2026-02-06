@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, timezone
 import random
 import string
-from fastapi import APIRouter, Depends, Form, HTTPException, Request
+from fastapi import APIRouter, Depends, Form, HTTPException, Request, BackgroundTasks
 from fastapi.responses import RedirectResponse, JSONResponse
 from sqlalchemy.orm import Session
 
@@ -24,6 +24,7 @@ def _random_password(length: int = 8) -> str:
 
 @router.post("/register")
 def register(
+    background_tasks: BackgroundTasks,
     name: str = Form(...),
     contact_email: str = Form(...),
     password: str = Form(...),
@@ -74,13 +75,11 @@ def register(
         existing_org.otp_expires = expires_at
         existing_org.must_change_password = False
         
-        # Try to send email and commit
-        try:
-            send_otp_email(contact_email, otp)
-            db.commit()
-        except Exception as e:
-            db.rollback()
-            raise HTTPException(status_code=500, detail=f"Failed to send verification email: {str(e)}")
+        # Commit first
+        db.commit()
+        
+        # Then send email in background
+        background_tasks.add_task(send_otp_email, contact_email, otp)
         
         return {"message": "OTP sent successfully", "email": contact_email}
 
@@ -123,19 +122,16 @@ def register(
     )
     db.add(org)
 
-    # ATOMIC COMMIT: Only commit if email is sent successfully
-    try:
-        send_otp_email(contact_email, otp)
-        db.commit() # Now it's safe to save everything
-    except Exception as e:
-        db.rollback()
-        raise HTTPException(status_code=500, detail=f"Failed to send verification email: {str(e)}")
+    db.commit() # Save everything first
+    
+    # Send email in background
+    background_tasks.add_task(send_otp_email, contact_email, otp)
 
     return {"message": "OTP sent successfully", "email": contact_email}
 
 
 @router.post("/resend-otp")
-def resend_otp(email: str = Form(...), db: Session = Depends(get_db)):
+def resend_otp(background_tasks: BackgroundTasks, email: str = Form(...), db: Session = Depends(get_db)):
     org = db.query(models.Organization).filter(models.Organization.contact_email == email).first()
     if not org:
         raise HTTPException(status_code=404, detail="Organization not found")
@@ -148,13 +144,7 @@ def resend_otp(email: str = Form(...), db: Session = Depends(get_db)):
     org.otp = otp
     org.otp_expires = datetime.now(timezone.utc) + timedelta(minutes=10)
     db.commit()
-
-    try:
-        send_otp_email(email, otp)
-    except Exception as e:
-        db.rollback()
-        raise HTTPException(status_code=500, detail=f"Failed to resend verification email: {str(e)}")
-
+    background_tasks.add_task(send_otp_email, email, otp)
     return {"message": "OTP resent successfully"}
 
 
@@ -230,6 +220,7 @@ def login(
 
 @router.post("/change-password")
 def change_password(
+    background_tasks: BackgroundTasks,
     request: Request,
     old_password: str = Form(...),
     new_password: str = Form(...),
@@ -267,7 +258,7 @@ def change_password(
 
     db.commit()
 
-    send_password_changed_email(org.contact_email)
+    background_tasks.add_task(send_password_changed_email, org.contact_email)
 
     return {"message": "Password changed successfully"}
 
@@ -284,7 +275,7 @@ def logout():
 
 
 @router.post("/forgot-password/request")
-def forgot_password_request(email: str = Form(...), db: Session = Depends(get_db)):
+def forgot_password_request(background_tasks: BackgroundTasks, email: str = Form(...), db: Session = Depends(get_db)):
     org = db.query(models.Organization).filter(models.Organization.contact_email == email).first()
     if not org:
         # For security, don't reveal if org exists
@@ -295,13 +286,10 @@ def forgot_password_request(email: str = Form(...), db: Session = Depends(get_db
     org.otp_expires = datetime.now(timezone.utc) + timedelta(minutes=10)
     db.commit()
 
-    try:
-        send_otp_email(email, otp)
-    except Exception as e:
-        db.rollback()
-        raise HTTPException(status_code=500, detail="Failed to send password reset email")
+    db.commit()
+    background_tasks.add_task(send_otp_email, email, otp)
 
-    return {"message": "OTP sent successfully"}
+    return {"message": "If this email is registered, an OTP has been sent."}
 
 
 @router.post("/forgot-password/reset")

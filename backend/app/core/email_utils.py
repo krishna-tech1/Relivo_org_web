@@ -1,8 +1,10 @@
 import smtplib
+import logging
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from app.core.config import settings
 
+logger = logging.getLogger(__name__)
 
 def send_otp_email(email: str, code: str) -> None:
     msg = MIMEMultipart()
@@ -20,11 +22,17 @@ def send_otp_email(email: str, code: str) -> None:
     '''
     msg.attach(MIMEText(body, "html"))
 
-    # Add timeout to prevent hanging
-    with smtplib.SMTP(settings.MAIL_SERVER, int(settings.MAIL_PORT), timeout=30) as server:
-        server.starttls()
-        server.login(settings.MAIL_USERNAME, settings.MAIL_PASSWORD)
-        server.send_message(msg)
+    try:
+        with smtplib.SMTP(settings.MAIL_SERVER, int(settings.MAIL_PORT), timeout=15) as server:
+            server.starttls()
+            server.login(settings.MAIL_USERNAME, settings.MAIL_PASSWORD)
+            server.send_message(msg)
+            logger.info(f"OTP email sent successfully to {email}")
+    except Exception as e:
+        logger.error(f"Failed to send OTP email to {email}: {str(e)}")
+        # We don't raise here if called via BackgroundTasks, 
+        # but we raise if called synchronously to let the user know.
+        raise e
 
 
 def send_password_changed_email(email: str) -> None:
@@ -39,7 +47,10 @@ def send_password_changed_email(email: str) -> None:
     '''
     msg.attach(MIMEText(body, "html"))
 
-    with smtplib.SMTP(settings.MAIL_SERVER, int(settings.MAIL_PORT), timeout=30) as server:
-        server.starttls()
-        server.login(settings.MAIL_USERNAME, settings.MAIL_PASSWORD)
-        server.send_message(msg)
+    try:
+        with smtplib.SMTP(settings.MAIL_SERVER, int(settings.MAIL_PORT), timeout=15) as server:
+            server.starttls()
+            server.login(settings.MAIL_USERNAME, settings.MAIL_PASSWORD)
+            server.send_message(msg)
+    except Exception as e:
+        logger.error(f"Failed to send password change email to {email}: {str(e)}")
