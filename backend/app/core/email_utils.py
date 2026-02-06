@@ -28,11 +28,14 @@ def send_otp_email(email: str, code: str) -> None:
     try:
         if port == 465:
             logger.info(f"Connecting to {server_addr}:{port} via SSL...")
+            logger.debug(f"Using Username: {settings.MAIL_USERNAME[:4]}... Length: {len(settings.MAIL_USERNAME)}")
             with smtplib.SMTP_SSL(server_addr, port, timeout=15) as server:
                 server.login(settings.MAIL_USERNAME, settings.MAIL_PASSWORD)
                 server.send_message(msg)
         else:
             logger.info(f"Connecting to {server_addr}:{port} via STARTTLS...")
+            logger.debug(f"Using Username: {settings.MAIL_USERNAME[:4]}... (Len: {len(settings.MAIL_USERNAME)})")
+            logger.debug(f"Using Password Len: {len(settings.MAIL_PASSWORD)}")
             with smtplib.SMTP(server_addr, port, timeout=15) as server:
                 logger.debug("SMTP connection established, starting TLS...")
                 server.starttls()
