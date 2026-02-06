@@ -4,27 +4,59 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Relivo Organization Portal</title>
+    <title>Welcome | Relivo Organization Portal</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
-    <main class="page">
+    <main class="page center">
         <header class="hero">
-            <h1>Welcome to Relivo</h1>
-            <p class="muted">The secure portal for organizations to manage and publish grants.</p>
+            <h1 style="font-size: 4.5rem; letter-spacing: -0.05em;">Relivo</h1>
+            <p style="font-size: 1.5rem; max-width: 600px; margin: 0 auto;">Empowering organizations to manage, publish,
+                and track humanitarian grants with ultimate security.</p>
         </header>
 
-        <section class="card" style="text-align: center;">
-            <h2 style="margin-bottom: 24px;">Get Started</h2>
-            <div class="actions" style="justify-content: center;">
-                <a class="btn primary" href="login.html">Sign In</a>
-                <a class="btn" href="register.html">Register Organization</a>
+        <section class="card"
+            style="width: 100%; max-width: 550px; text-align: center; border-bottom: 8px solid var(--secondary);">
+            <div style="display: flex; flex-direction: column; gap: 24px;">
+                <h2 style="font-size: 1.5rem; color: var(--primary);">Gateway Access</h2>
+                <div style="display: flex; gap: 16px; justify-content: center;">
+                    <a class="btn primary" href="login.html" style="flex: 1;">
+                        <i data-lucide="log-in"></i>
+                        Portal Login
+                    </a>
+                    <a class="btn ghost" href="register.html" style="flex: 1; border: 2px solid #e2e8f0;">
+                        <i data-lucide="user-plus"></i>
+                        Register
+                    </a>
+                </div>
+
+                <div
+                    style="margin-top: 16px; padding: 20px; background: var(--bg-main); border-radius: var(--radius-md); text-align: left; display: flex; gap: 16px; align-items: flex-start;">
+                    <i data-lucide="info" style="color: var(--accent); flex-shrink: 0;"></i>
+                    <p class="muted" style="font-size: 0.875rem;">
+                        This portal is exclusively for verified organizations. If you are a grant applicant, please
+                        visit our main platform.
+                    </p>
+                </div>
+
+                <p class="muted" style="font-size: 0.875rem;">Institutional Support: <a href="mailto:support@relivo.org"
+                        style="color: var(--primary); font-weight: 700; text-decoration: none;">support@relivo.org</a>
+                </p>
             </div>
-            <p class="muted" style="margin-top: 32px;">Need help? <a href="mailto:support@relivo.org"
-                    style="color: var(--primary); text-decoration: none; font-weight: 500;">Contact Support</a></p>
         </section>
+
+        <footer
+            style="margin-top: 60px; color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700;">
+            &copy; 2026 Relivo Global Aid Network • All Rights Reserved
+        </footer>
     </main>
+
+    <script src="js/config.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 
 </html>

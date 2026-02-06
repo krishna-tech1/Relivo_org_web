@@ -4,35 +4,52 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Verify Email</title>
+    <title>Verify Email | Relivo Organization Portal</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
-    <main class="page">
+    <main class="page center">
         <header class="hero">
-            <h1>Verification</h1>
-            <p class="muted">A 6-digit code has been sent to your email.</p>
+            <h1>Verify Identity</h1>
+            <p>We've sent a 6-digit verification code to your email.</p>
         </header>
 
-        <section class="card">
-            <h2 style="margin-bottom: 24px;">Enter OTP</h2>
+        <section class="card" style="width: 100%; max-width: 450px; text-align: center;">
+            <i data-lucide="shield-check"
+                style="width: 64px; height: 64px; color: var(--accent); margin-bottom: 24px;"></i>
+
             <form class="form" id="verifyForm">
                 <input type="hidden" name="email" id="verifyEmail" />
-                <label>One-Time Password
-                    <input type="text" name="code" placeholder="000000" required maxlength="6"
-                        style="text-align: center; font-size: 1.5rem; letter-spacing: 12px;" />
-                </label>
-                <button class="btn primary" type="submit">Verify Account</button>
+                <div class="input-group">
+                    <label>OTP Code</label>
+                    <input type="text" name="code" placeholder="123456" required maxlength="6"
+                        style="text-align: center; letter-spacing: 12px; font-size: 2rem; font-weight: 800;" />
+                </div>
+                <button class="btn primary" type="submit">
+                    <i data-lucide="check-circle-2"></i>
+                    Complete Verification
+                </button>
             </form>
 
-            <form class="form" id="resendForm" style="margin-top: 16px;">
-                <button class="btn ghost" type="submit">Didn't receive it? Resend OTP</button>
-            </form>
+            <div style="margin-top: 32px; border-top: 1px solid #f1f5f9; padding-top: 24px;">
+                <form id="resendForm">
+                    <p class="muted" style="margin-bottom: 12px;">Didn't receive the code?</p>
+                    <button class="btn ghost" type="submit">
+                        <i data-lucide="refresh-cw"></i>
+                        Resend Code
+                    </button>
+                </form>
+            </div>
         </section>
     </main>
+
     <script src="js/config.js"></script>
     <script src="js/auth.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 
 </html>

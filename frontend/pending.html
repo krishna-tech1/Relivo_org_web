@@ -4,24 +4,34 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Pending Approval</title>
+    <title>Pending Approval | Relivo</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
-    <main class="page">
-        <header class="hero small">
-            <h1>Pending Approval</h1>
-            <p>Your organization account is currently under review.</p>
+    <main class="page center">
+        <header class="hero">
+            <i data-lucide="clock" style="width: 64px; height: 64px; color: var(--warning); margin-bottom: 24px;"></i>
+            <h1>Review in Progress</h1>
+            <p>Your organization profile is currently being reviewed by our administrative team.</p>
         </header>
 
-        <section class="card">
-            <p>We will notify you via email as soon as your account is approved and activated.</p>
-            <div class="actions">
-                <a class="btn primary" href="index.html">Back Home</a>
+        <section class="card" style="width: 100%; max-width: 500px; text-align: center;">
+            <p style="margin-bottom: 32px; color: var(--text-muted);">
+                To maintain the integrity of our grant portal, we manually verify all organizations. You will receive an
+                email confirmation once your workspace is activated (usually within 24-48 hours).
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                <a class="btn primary" href="login.html">
+                    <i data-lucide="arrow-left"></i>
+                    Back to Login
+                </a>
+                <a class="btn ghost" href="index.html">Visit Public Site</a>
             </div>
         </section>
     </main>
+    <script>lucide.createIcons();</script>
 </body>
 
 </html>

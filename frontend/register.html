@@ -4,66 +4,81 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Register Organization</title>
+    <title>Registration | Relivo Organization Portal</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
-    <main class="page">
+    <main class="page center" style="padding: 60px 24px;">
         <header class="hero">
             <h1>Join Relivo</h1>
-            <p class="muted">Register your organization to access grants.</p>
+            <p>Empowering organizations to deliver impactful grants.</p>
         </header>
 
-        <section class="card">
-            <h2 style="margin-bottom: 24px;">Registration</h2>
+        <section class="card" style="width: 100%; max-width: 650px;">
             <form class="form" id="registerForm">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <label>Organization Name
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <div class="input-group">
+                        <label>Organization Name</label>
                         <input type="text" name="name" placeholder="Relivo Org" required />
-                    </label>
-                    <label>Country
+                    </div>
+                    <div class="input-group">
+                        <label>Country</label>
                         <input type="text" name="country" placeholder="Country" required />
-                    </label>
+                    </div>
                 </div>
 
-                <label>Official Email
+                <div class="input-group">
+                    <label>Official Contact Email</label>
                     <input type="email" name="contact_email" placeholder="official@org.org" required />
-                </label>
+                </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <label>Organization Type
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <div class="input-group">
+                        <label>Organization Type</label>
                         <select name="org_type" required>
-                            <option value="Government">Government</option>
-                            <option value="NGO" selected>NGO</option>
-                            <option value="Private">Private</option>
+                            <option value="NGO" selected>Non-Profit (NGO)</option>
+                            <option value="Government">Government Body</option>
+                            <option value="Private">Private Foundation / Corp</option>
                         </select>
-                    </label>
-                    <label>Website (Optional)
-                        <input type="url" name="website" placeholder="https://..." />
-                    </label>
+                    </div>
+                    <div class="input-group">
+                        <label>Website (Optional)</label>
+                        <input type="url" name="website" placeholder="https://www.example.org" />
+                    </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <label>Password
-                        <input type="password" name="password" id="regPassword" placeholder="Min. 8 characters" required
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" name="password" id="regPassword" placeholder="••••••••" required
                             minlength="8" />
-                    </label>
-                    <label>Confirm Password
-                        <input type="password" id="regConfirmPassword" placeholder="Repeat password" required
-                            minlength="8" />
-                    </label>
+                    </div>
+                    <div class="input-group">
+                        <label>Verify Password</label>
+                        <input type="password" id="regConfirmPassword" placeholder="••••••••" required minlength="8" />
+                    </div>
                 </div>
 
-                <button class="btn primary" type="submit" style="margin-top: 10px;">Create Account</button>
+                <button class="btn primary" type="submit" style="margin-top: 16px;">
+                    <i data-lucide="user-plus"></i>
+                    Register Organization
+                </button>
             </form>
-            <div class="auth-footer">
-                <p class="muted">Already have an account? <a href="login.html">Log in here</a></p>
+
+            <div class="auth-footer" style="margin-top: 32px; border-top: 1px solid #f1f5f9; padding-top: 24px;">
+                <p class="muted">Already have a portal account? <a href="login.html"
+                        style="color: var(--accent); font-weight: 700;">Sign in here</a></p>
             </div>
         </section>
     </main>
+
     <script src="js/config.js"></script>
     <script src="js/auth.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 
 </html>

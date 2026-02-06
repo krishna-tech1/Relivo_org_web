@@ -15,20 +15,36 @@ function getAuthHeaders() {
 function checkAuth() {
     const token = localStorage.getItem('org_token') || getCookie('org_token');
     const path = window.location.pathname.toLowerCase();
-    const guestPages = ['login', 'register', 'index', 'verify', 'forgot-password', 'verified'];
-    const isGuestPage = guestPages.some(page => path.includes(page)) || path === '/' || path === '';
+    const guestPages = ['login', 'register', 'index', 'verify', 'forgot-password', 'verified', 'pending', 'suspended', 'rejected'];
+    const isGuestPage = guestPages.some(page => path.includes(page)) || path === '/' || path.endsWith('index.html');
 
     if (!token && !isGuestPage) {
         window.location.href = 'login.html';
     }
 }
-// checkAuth(); // Removed auto-call to prevent redirect loops on login/register pages.
+
+// UI Feedback Helper
+function setBtnLoading(btn, isLoading, originalHtml) {
+    if (isLoading) {
+        btn.disabled = true;
+        btn.dataset.original = btn.innerHTML;
+        btn.innerHTML = '<i data-lucide="loader" class="spin"></i> Processing...';
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    } else {
+        btn.disabled = false;
+        btn.innerHTML = btn.dataset.original || originalHtml;
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+}
 
 // Handle Login
 const loginForm = document.getElementById('loginForm');
 if (loginForm) {
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        const btn = loginForm.querySelector('button[type="submit"]');
+        setBtnLoading(btn, true);
+
         const formData = new FormData(loginForm);
 
         try {
@@ -38,28 +54,24 @@ if (loginForm) {
             });
 
             if (response.ok) {
-                // Check if it was a redirect (FastAPI might still return 303)
-                if (response.redirected) {
-                    const url = new URL(response.url);
-                    window.location.href = url.pathname.split('/').pop() + '.html';
+                const data = await response.json();
+                if (data.access_token) {
+                    localStorage.setItem('org_token', data.access_token);
+                }
+                if (data.redirect) {
+                    window.location.href = data.redirect + '.html';
                 } else {
-                    const data = await response.json();
-                    if (data.access_token) {
-                        localStorage.setItem('org_token', data.access_token);
-                    }
-                    if (data.redirect) {
-                        window.location.href = data.redirect + '.html';
-                    } else {
-                        window.location.href = 'dashboard.html';
-                    }
+                    window.location.href = 'dashboard.html';
                 }
             } else {
                 const error = await response.json();
-                alert(error.detail || 'Login failed');
+                alert(error.detail || 'Login failed. Please check your credentials.');
+                setBtnLoading(btn, false);
             }
         } catch (err) {
             console.error(err);
-            alert('An error occurred during login');
+            alert('A network error occurred. Please try again.');
+            setBtnLoading(btn, false);
         }
     });
 }
@@ -69,15 +81,18 @@ const registerForm = document.getElementById('registerForm');
 if (registerForm) {
     registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const formData = new FormData(registerForm);
+        const btn = registerForm.querySelector('button[type="submit"]');
 
+        const formData = new FormData(registerForm);
         const password = formData.get('password');
         const confirmPassword = document.getElementById('regConfirmPassword').value;
 
         if (password !== confirmPassword) {
-            alert('Passwords do not match');
+            alert('Security Error: New passwords do not match.');
             return;
         }
+
+        setBtnLoading(btn, true);
 
         try {
             const response = await fetch(`${CONFIG.API_BASE_URL}/auth/register`, {
@@ -90,11 +105,13 @@ if (registerForm) {
                 window.location.href = `verify.html?email=${email}`;
             } else {
                 const error = await response.json();
-                alert(error.detail || 'Registration failed');
+                alert(error.detail || 'Registration failed. Email might already be registered.');
+                setBtnLoading(btn, false);
             }
         } catch (err) {
             console.error('Registration Error:', err);
-            alert('An error occurred during registration. Check console for details.');
+            alert('A network error occurred during registration.');
+            setBtnLoading(btn, false);
         }
     });
 }
@@ -110,6 +127,8 @@ if (verifyForm) {
 
     verifyForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        const btn = verifyForm.querySelector('button[type="submit"]');
+        setBtnLoading(btn, true);
         const formData = new FormData(verifyForm);
 
         try {
@@ -122,11 +141,12 @@ if (verifyForm) {
                 window.location.href = 'verified.html';
             } else {
                 const error = await response.json();
-                alert(error.detail || 'Verification failed');
+                alert(error.detail || 'Verification failed. Code may be incorrect or expired.');
+                setBtnLoading(btn, false);
             }
         } catch (err) {
             console.error(err);
-            alert('An error occurred during verification');
+            setBtnLoading(btn, false);
         }
     });
 }
@@ -136,13 +156,12 @@ const resendForm = document.getElementById('resendForm');
 if (resendForm) {
     resendForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        const btn = resendForm.querySelector('button');
         const urlParams = new URLSearchParams(window.location.search);
         const email = urlParams.get('email');
 
-        if (!email) {
-            alert('Email missing');
-            return;
-        }
+        if (!email) return;
+        setBtnLoading(btn, true);
 
         const formData = new FormData();
         formData.append('email', email);
@@ -154,22 +173,22 @@ if (resendForm) {
             });
 
             if (response.ok) {
-                alert('OTP resent successfully');
-            } else {
-                const error = await response.json();
-                alert(error.detail || 'Failed to resend OTP');
+                alert('Success: A new verification code has been dispatched.');
             }
+            setBtnLoading(btn, false);
         } catch (err) {
-            console.error(err);
-            alert('An error occurred');
+            setBtnLoading(btn, false);
         }
     });
 }
+
 // Handle Forgot Password Request
 const forgotRequestForm = document.getElementById('forgotRequestForm');
 if (forgotRequestForm) {
     forgotRequestForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        const btn = forgotRequestForm.querySelector('button');
+        setBtnLoading(btn, true);
         const formData = new FormData(forgotRequestForm);
         try {
             const response = await fetch(`${CONFIG.API_BASE_URL}/auth/forgot-password/request`, {
@@ -178,15 +197,15 @@ if (forgotRequestForm) {
             });
             const data = await response.json();
             if (response.ok) {
-                alert(data.message);
                 document.getElementById('resetSection').style.display = 'block';
                 document.getElementById('resetEmail').value = formData.get('email');
+                if (typeof lucide !== 'undefined') lucide.createIcons();
             } else {
-                alert(data.detail || 'Request failed');
+                alert(data.detail || 'Service unavailable.');
             }
+            setBtnLoading(btn, false);
         } catch (err) {
-            console.error(err);
-            alert('An error occurred');
+            setBtnLoading(btn, false);
         }
     });
 }
@@ -196,22 +215,23 @@ const forgotResetForm = document.getElementById('forgotResetForm');
 if (forgotResetForm) {
     forgotResetForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        const btn = forgotResetForm.querySelector('button');
+        setBtnLoading(btn, true);
         const formData = new FormData(forgotResetForm);
         try {
             const response = await fetch(`${CONFIG.API_BASE_URL}/auth/forgot-password/reset`, {
                 method: 'POST',
                 body: formData
             });
-            const data = await response.json();
             if (response.ok) {
-                alert('Password reset successfully! You can now login.');
-                window.location.href = 'login.html';
+                window.location.href = 'login.html?reset=success';
             } else {
-                alert(data.detail || 'Reset failed');
+                const data = await response.json();
+                alert(data.detail || 'Reset failed.');
+                setBtnLoading(btn, false);
             }
         } catch (err) {
-            console.error(err);
-            alert('An error occurred');
+            setBtnLoading(btn, false);
         }
     });
 }

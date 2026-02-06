@@ -4,60 +4,82 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Grant Form</title>
+    <title>Manage Grant | Relivo Organization Portal</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
     <main class="page">
-        <header class="hero">
-            <h1 id="formTitle">Create New Grant</h1>
-            <p class="muted">Fill in the details to publish your grant.</p>
+        <header class="hero" style="text-align: left; margin-bottom: 40px;">
+            <a href="dashboard.html" class="muted"
+                style="text-decoration: none; display: flex; align-items: center; gap: 8px; margin-bottom: 24px; font-weight: 700;">
+                <i data-lucide="chevron-left"></i>
+                Return to Workspace
+            </a>
+            <h1 id="pageTitle" style="font-size: 2.5rem; background: none; -webkit-text-fill-color: var(--primary);">
+                Create New Grant</h1>
+            <p>Publish a new opportunity for humanitarian aid or community support.</p>
         </header>
 
         <section class="card">
             <form class="form" id="grantForm">
-                <label>Grant Title
-                    <input type="text" name="title" id="grantTitle" placeholder="e.g. Refugee Education Fund"
-                        required />
-                </label>
+                <input type="hidden" name="grant_id" id="grantId" />
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-                    <label>Deadline
-                        <input type="date" name="deadline" id="grantDeadline" />
-                    </label>
-                    <label>Amount
-                        <input type="text" name="amount" id="grantAmount" placeholder="$5,000" />
-                    </label>
+                <div class="input-group">
+                    <label>Grant Title</label>
+                    <input type="text" name="title" placeholder="e.g., Refugee Emergency Education Support" required />
                 </div>
 
-                <label>Apply URL (Internal or External)
-                    <input type="url" name="apply_url" id="grantApplyUrl" placeholder="https://..." required />
-                </label>
+                <div class="input-group">
+                    <label>Organizer / Department</label>
+                    <input type="text" name="organizer" placeholder="e.g., Dept of Social Welfare" required />
+                </div>
 
-                <label>Eligible Refugee Country
-                    <input type="text" name="refugee_country" id="grantCountry" placeholder="Any" />
-                </label>
+                <div class="input-group">
+                    <label>Brief Description</label>
+                    <textarea name="description" rows="4" placeholder="Detailed objective and scope of this grant..."
+                        required></textarea>
+                </div>
 
-                <label>Grant Description
-                    <textarea name="description" id="grantDescription" rows="4"
-                        placeholder="Tell us about the grant..."></textarea>
-                </label>
+                <div class="input-group">
+                    <label>Full Application URL</label>
+                    <input type="url" name="apply_url" placeholder="https://..." required />
+                </div>
 
-                <label>Eligibility Criteria
-                    <textarea name="eligibility" id="grantEligibility" rows="4" placeholder="Who can apply?"></textarea>
-                </label>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <div class="input-group">
+                        <label>Application Deadline</label>
+                        <input type="date" name="deadline" />
+                    </div>
+                    <div class="input-group">
+                        <label>Primary Beneficiary Country</label>
+                        <input type="text" name="refugee_country" placeholder="e.g., Yemen, Syria, etc." required />
+                    </div>
+                </div>
 
-                <div class="actions" style="margin-top: 12px;">
-                    <button class="btn primary" type="submit">Save Publication</button>
-                    <a class="btn ghost" href="dashboard.html">Cancel</a>
+                <div class="input-group">
+                    <label>Eligibility Criteria</label>
+                    <textarea name="eligibility" rows="3" placeholder="Who is eligible to apply?"></textarea>
+                </div>
+
+                <div style="display: flex; gap: 16px; margin-top: 16px;">
+                    <button class="btn primary" type="submit" id="submitBtn">
+                        <i data-lucide="check-circle"></i>
+                        Publish Now
+                    </button>
+                    <a class="btn ghost" href="dashboard.html">Discard Changes</a>
                 </div>
             </form>
         </section>
     </main>
+
     <script src="js/config.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/grants.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 
 </html>

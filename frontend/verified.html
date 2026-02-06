@@ -4,24 +4,34 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Account Verified</title>
+    <title>Email Verified | Relivo</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
-    <main class="page">
-        <header class="hero small">
-            <h1>Verification Success!</h1>
-            <p>Your email has been verified. Our team will review your application soon.</p>
+    <main class="page center">
+        <header class="hero">
+            <i data-lucide="check-circle"
+                style="width: 64px; height: 64px; color: var(--success); margin-bottom: 24px;"></i>
+            <h1>Account Verified</h1>
+            <p>Your email address has been successfully confirmed.</p>
         </header>
 
-        <section class="card">
-            <p>Once approved, you will receive an email with your login details.</p>
-            <div class="actions">
-                <a class="btn primary" href="login.html">Wait for Approval</a>
+        <section class="card" style="width: 100%; max-width: 500px; text-align: center;">
+            <p style="margin-bottom: 32px; color: var(--text-muted);">
+                Thank you for verifying your organization. Our team will now review your profile for final activation.
+                You can sign in to your portal to check your status at any time.
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                <a class="btn primary" href="login.html">
+                    <i data-lucide="log-in"></i>
+                    Go to Portal Login
+                </a>
             </div>
         </section>
     </main>
+    <script>lucide.createIcons();</script>
 </body>
 
 </html>
