@@ -18,10 +18,13 @@ async function loadDashboard() {
 
         const data = await response.json();
 
+        // Password mandate removed per user request
+        /*
         if (data.must_change_password) {
             window.location.href = 'settings.html';
             return;
         }
+        */
 
         document.getElementById('orgName').textContent = data.org.name;
         document.getElementById('orgInfo').textContent = `${data.org.contact_email} - ${data.org.country}`;
