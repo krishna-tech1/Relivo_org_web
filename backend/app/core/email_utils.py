@@ -1,18 +1,18 @@
-import smtplib
 import logging
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+import httpx
 from app.core.config import settings
 
 logger = logging.getLogger(__name__)
 
 def send_otp_email(email: str, code: str) -> None:
-    msg = MIMEMultipart()
-    msg["From"] = settings.MAIL_FROM
-    msg["To"] = email
-    msg["Subject"] = "Relivo Organization Verification Code"
-
-    body = f'''
+    url = "https://api.brevo.com/v3/smtp/email"
+    headers = {
+        "accept": "application/json",
+        "api-key": settings.MAIL_PASSWORD,
+        "content-type": "application/json"
+    }
+    
+    body_html = f'''
     <h3>Your Relivo verification code</h3>
     <p>Use the OTP below to verify your organization email:</p>
     <div style="background:#f4f4f4;padding:12px;border-radius:6px;">
@@ -20,60 +20,56 @@ def send_otp_email(email: str, code: str) -> None:
     </div>
     <p>This code expires in 10 minutes.</p>
     '''
-    msg.attach(MIMEText(body, "html"))
-
-    port = int(settings.MAIL_PORT)
-    server_addr = settings.MAIL_SERVER
+    
+    payload = {
+        "sender": {"email": settings.MAIL_FROM, "name": "Relivo Org"},
+        "to": [{"email": email}],
+        "subject": "Relivo Organization Verification Code",
+        "htmlContent": body_html
+    }
 
     try:
-        if port == 465:
-            logger.info(f"Connecting to {server_addr}:{port} via SSL...")
-            logger.debug(f"Using Username: {settings.MAIL_USERNAME[:4]}... Length: {len(settings.MAIL_USERNAME)}")
-            with smtplib.SMTP_SSL(server_addr, port, timeout=15) as server:
-                server.login(settings.MAIL_USERNAME, settings.MAIL_PASSWORD)
-                server.send_message(msg)
+        logger.info(f"Sending OTP email via Brevo API to {email}...")
+        response = httpx.post(url, headers=headers, json=payload, timeout=10.0)
+        
+        if response.status_code in (201, 202, 200):
+            logger.info(f"OTP email sent successfully via API to {email}")
         else:
-            logger.info(f"Connecting to {server_addr}:{port} via STARTTLS...")
-            logger.info(f"Using Username: {settings.MAIL_USERNAME[:5]}... (Len: {len(settings.MAIL_USERNAME)})")
-            logger.info(f"Using Password: {settings.MAIL_PASSWORD[:5]}... (Len: {len(settings.MAIL_PASSWORD)})")
-            with smtplib.SMTP(server_addr, port, timeout=15) as server:
-                logger.debug("SMTP connection established, starting TLS...")
-                server.starttls()
-                logger.debug("STARTTLS successful, logging in...")
-                server.login(settings.MAIL_USERNAME, settings.MAIL_PASSWORD)
-                logger.debug("Login successful, sending message...")
-                server.send_message(msg)
-        logger.info(f"OTP email sent successfully to {email}")
+            logger.error(f"Brevo API error: {response.status_code} - {response.text}")
+            raise Exception(f"Brevo API failed with status {response.status_code}")
+            
     except Exception as e:
-        logger.error(f"Failed to send OTP email to {email} on port {port}: {str(e)}")
+        logger.error(f"Failed to send OTP email to {email} via API: {str(e)}")
         raise e
 
 
 def send_password_changed_email(email: str) -> None:
-    msg = MIMEMultipart()
-    msg["From"] = settings.MAIL_FROM
-    msg["To"] = email
-    msg["Subject"] = "Relivo Password Updated"
+    url = "https://api.brevo.com/v3/smtp/email"
+    headers = {
+        "accept": "application/json",
+        "api-key": settings.MAIL_PASSWORD,
+        "content-type": "application/json"
+    }
 
-    body = '''
+    body_html = '''
     <h3>Your password has been updated</h3>
     <p>If you did not change this password, contact support immediately.</p>
     '''
-    msg.attach(MIMEText(body, "html"))
 
-    port = int(settings.MAIL_PORT)
-    server_addr = settings.MAIL_SERVER
+    payload = {
+        "sender": {"email": settings.MAIL_FROM, "name": "Relivo Org"},
+        "to": [{"email": email}],
+        "subject": "Relivo Password Updated",
+        "htmlContent": body_html
+    }
 
     try:
-        if port == 465:
-            with smtplib.SMTP_SSL(server_addr, port, timeout=15) as server:
-                server.login(settings.MAIL_USERNAME, settings.MAIL_PASSWORD)
-                server.send_message(msg)
+        logger.info(f"Sending password change email via Brevo API to {email}...")
+        response = httpx.post(url, headers=headers, json=payload, timeout=10.0)
+        
+        if response.status_code in (201, 202, 200):
+            logger.info(f"Password update email sent successfully via API to {email}")
         else:
-            with smtplib.SMTP(server_addr, port, timeout=15) as server:
-                server.starttls()
-                server.login(settings.MAIL_USERNAME, settings.MAIL_PASSWORD)
-                server.send_message(msg)
-            logger.info(f"Password change email sent successfully to {email}")
+            logger.error(f"Brevo API error: {response.status_code} - {response.text}")
     except Exception as e:
-        logger.error(f"Failed to send password change email to {email}: {str(e)}")
+        logger.error(f"Failed to send password change email to {email} via API: {str(e)}")
