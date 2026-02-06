@@ -1,3 +1,5 @@
+checkAuth();
+
 async function loadDashboard() {
     try {
         const response = await fetch(`${CONFIG.API_BASE_URL}/api/dashboard_data`, {
@@ -27,10 +29,10 @@ async function loadDashboard() {
         // Handle Status
         const status = data.org.status ? data.org.status.toLowerCase() : 'pending';
         if (status === 'pending') {
-            document.body.insertAdjacentHTML('afterbegin', '<div class="alert" style="position: sticky; top: 0; z-index: 100; text-align: center; border-radius: 0;">Notice: Your account is <b>Pending Approval</b>. You can see your dashboard but cannot post grants yet.</div>');
+            document.body.insertAdjacentHTML('afterbegin', '<div class="alert">Notice: Your account is <b>Pending Approval</b>. You can see your dashboard but cannot post grants yet.</div>');
             document.querySelectorAll('.actions .btn:not(#logoutBtn)').forEach(btn => btn.style.display = 'none');
         } else if (status === 'rejected') {
-            document.body.insertAdjacentHTML('afterbegin', '<div class="alert danger" style="position: sticky; top: 0; z-index: 100; text-align: center; border-radius: 0; background: #ffcccc; color: #990000; border: 1px solid #cc0000;">Notice: Your application has been <b>Rejected</b>. Please contact support for details.</div>');
+            document.body.insertAdjacentHTML('afterbegin', '<div class="alert danger">Notice: Your application has been <b>Rejected</b>. Please contact support for details.</div>');
             document.querySelectorAll('.actions .btn:not(#logoutBtn)').forEach(btn => btn.style.display = 'none');
         }
 

@@ -14,11 +14,15 @@ function getAuthHeaders() {
 // Check if logged in
 function checkAuth() {
     const token = localStorage.getItem('org_token') || getCookie('org_token');
-    if (!token && !window.location.pathname.includes('login.html') && !window.location.pathname.includes('register.html') && !window.location.pathname.includes('index.html')) {
+    const path = window.location.pathname.toLowerCase();
+    const guestPages = ['login', 'register', 'index', 'verify', 'forgot-password', 'verified'];
+    const isGuestPage = guestPages.some(page => path.includes(page)) || path === '/' || path === '';
+
+    if (!token && !isGuestPage) {
         window.location.href = 'login.html';
     }
 }
-checkAuth(); // Call it immediately on check pages
+// checkAuth(); // Removed auto-call to prevent redirect loops on login/register pages.
 
 // Handle Login
 const loginForm = document.getElementById('loginForm');

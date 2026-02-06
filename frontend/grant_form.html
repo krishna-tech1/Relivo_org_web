@@ -10,36 +10,48 @@
 
 <body>
     <main class="page">
-        <header class="hero small">
-            <h1 id="formTitle">Create Grant</h1>
+        <header class="hero">
+            <h1 id="formTitle">Create New Grant</h1>
+            <p class="muted">Fill in the details to publish your grant.</p>
         </header>
 
         <section class="card">
             <form class="form" id="grantForm">
-                <label>Title
-                    <input type="text" name="title" id="grantTitle" required />
-                </label>
-                <label>Apply URL
-                    <input type="url" name="apply_url" id="grantApplyUrl" required />
-                </label>
-                <label>Deadline (YYYY-MM-DD)
-                    <input type="date" name="deadline" id="grantDeadline" />
-                </label>
-                <label>Amount
-                    <input type="text" name="amount" id="grantAmount" />
-                </label>
-                <label>Refugee Country
-                    <input type="text" name="refugee_country" id="grantCountry" />
-                </label>
-                <label>Description
-                    <textarea name="description" id="grantDescription" rows="4"></textarea>
-                </label>
-                <label>Eligibility
-                    <textarea name="eligibility" id="grantEligibility" rows="4"></textarea>
+                <label>Grant Title
+                    <input type="text" name="title" id="grantTitle" placeholder="e.g. Refugee Education Fund"
+                        required />
                 </label>
 
-                <button class="btn primary" type="submit">Save</button>
-                <a class="btn ghost" href="dashboard.html">Cancel</a>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <label>Deadline
+                        <input type="date" name="deadline" id="grantDeadline" />
+                    </label>
+                    <label>Amount
+                        <input type="text" name="amount" id="grantAmount" placeholder="$5,000" />
+                    </label>
+                </div>
+
+                <label>Apply URL (Internal or External)
+                    <input type="url" name="apply_url" id="grantApplyUrl" placeholder="https://..." required />
+                </label>
+
+                <label>Eligible Refugee Country
+                    <input type="text" name="refugee_country" id="grantCountry" placeholder="Any" />
+                </label>
+
+                <label>Grant Description
+                    <textarea name="description" id="grantDescription" rows="4"
+                        placeholder="Tell us about the grant..."></textarea>
+                </label>
+
+                <label>Eligibility Criteria
+                    <textarea name="eligibility" id="grantEligibility" rows="4" placeholder="Who can apply?"></textarea>
+                </label>
+
+                <div class="actions" style="margin-top: 12px;">
+                    <button class="btn primary" type="submit">Save Publication</button>
+                    <a class="btn ghost" href="dashboard.html">Cancel</a>
+                </div>
             </form>
         </section>
     </main>

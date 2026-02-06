@@ -10,42 +10,56 @@
 
 <body>
     <main class="page">
-        <header class="hero small">
-            <h1>Register Your Organization</h1>
-            <p>Verify your official email to start approval.</p>
+        <header class="hero">
+            <h1>Join Relivo</h1>
+            <p class="muted">Register your organization to access grants.</p>
         </header>
 
         <section class="card">
+            <h2 style="margin-bottom: 24px;">Registration</h2>
             <form class="form" id="registerForm">
-                <label>Organization Name
-                    <input type="text" name="name" required />
-                </label>
-                <label>Official Organization Email
-                    <input type="email" name="contact_email" required />
-                </label>
-                <label>Country
-                    <input type="text" name="country" required />
-                </label>
-                <label>Organization Type
-                    <select name="org_type" required>
-                        <option value="Government">Government</option>
-                        <option value="NGO">NGO</option>
-                        <option value="Private">Private</option>
-                    </select>
-                </label>
-                <label>Official Website (optional)
-                    <input type="url" name="website" />
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <label>Organization Name
+                        <input type="text" name="name" placeholder="Relivo Org" required />
+                    </label>
+                    <label>Country
+                        <input type="text" name="country" placeholder="Country" required />
+                    </label>
+                </div>
+
+                <label>Official Email
+                    <input type="email" name="contact_email" placeholder="official@org.org" required />
                 </label>
 
-                <label>Set Password
-                    <input type="password" name="password" id="regPassword" required minlength="8" />
-                </label>
-                <label>Confirm Password
-                    <input type="password" id="regConfirmPassword" required minlength="8" />
-                </label>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <label>Organization Type
+                        <select name="org_type" required>
+                            <option value="Government">Government</option>
+                            <option value="NGO" selected>NGO</option>
+                            <option value="Private">Private</option>
+                        </select>
+                    </label>
+                    <label>Website (Optional)
+                        <input type="url" name="website" placeholder="https://..." />
+                    </label>
+                </div>
 
-                <button class="btn primary" type="submit">Verify Email & Register</button>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <label>Password
+                        <input type="password" name="password" id="regPassword" placeholder="Min. 8 characters" required
+                            minlength="8" />
+                    </label>
+                    <label>Confirm Password
+                        <input type="password" id="regConfirmPassword" placeholder="Repeat password" required
+                            minlength="8" />
+                    </label>
+                </div>
+
+                <button class="btn primary" type="submit" style="margin-top: 10px;">Create Account</button>
             </form>
+            <div class="auth-footer">
+                <p class="muted">Already have an account? <a href="login.html">Log in here</a></p>
+            </div>
         </section>
     </main>
     <script src="js/config.js"></script>

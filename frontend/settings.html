@@ -10,23 +10,28 @@
 
 <body>
     <main class="page">
-        <header class="hero small">
-            <h1>Change Password</h1>
-            <p class="muted">For security, use a strong password.</p>
+        <header class="hero">
+            <h1>Account Settings</h1>
+            <p class="muted">Manage your security and profile.</p>
         </header>
 
-        <div id="passwordAlert" class="alert" style="display: none;">For security reasons, please change your password.
+        <div id="passwordAlert" class="alert danger" style="display: none;">
+            Security Notice: You are recently registered. Please update your temporary password to secure your account.
         </div>
 
         <section class="card">
+            <h2 style="margin-bottom: 24px;">Change Security Password</h2>
             <form class="form" id="passwordForm">
-                <label>Old Password
-                    <input type="password" name="old_password" required />
+                <label>Current Password
+                    <input type="password" name="old_password" placeholder="••••••••" required />
                 </label>
-                <label>New Password
-                    <input type="password" name="new_password" required />
+                <label>New Secure Password
+                    <input type="password" name="new_password" placeholder="••••••••" required />
                 </label>
-                <button class="btn primary" type="submit">Update Password</button>
+                <div class="actions">
+                    <button class="btn primary" type="submit">Update Password</button>
+                    <a class="btn ghost" href="dashboard.html">Return to Dashboard</a>
+                </div>
             </form>
         </section>
     </main>

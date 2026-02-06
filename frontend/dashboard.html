@@ -10,38 +10,38 @@
 
 <body>
     <main class="page wide">
-        <header class="hero small">
+        <header class="hero"
+            style="display: flex; justify-content: space-between; align-items: center; text-align: left;">
             <div>
                 <h1 id="orgName">Loading...</h1>
-                <p id="orgInfo"></p>
+                <p class="muted" id="orgInfo">Connecting to server...</p>
             </div>
             <div class="actions">
-                <a class="btn" href="grant_form.html">New Grant</a>
+                <a class="btn primary" href="grant_form.html">Create Grant</a>
                 <a class="btn" href="settings.html">Settings</a>
-                <button class="btn ghost" id="logoutBtn">Logout</button>
+                <button class="btn danger" id="logoutBtn">Log Out</button>
             </div>
         </header>
 
-
-        <section class="card stats">
+        <section class="stats">
             <div class="stat">
                 <p class="muted">Total Grants</p>
                 <h3 id="totalGrants">0</h3>
             </div>
             <div class="stat">
-                <p class="muted">Active Grants</p>
+                <p class="muted">Active</p>
                 <h3 id="activeGrants">0</h3>
             </div>
             <div class="stat">
-                <p class="muted">Inactive Grants</p>
+                <p class="muted">Pending</p>
                 <h3 id="inactiveGrants">0</h3>
             </div>
         </section>
 
         <section class="card">
-            <h2>Your Grants</h2>
+            <h2 style="margin-bottom: 32px;">Your Grant Publications</h2>
             <div id="grantsList" class="grid">
-                <p class="muted">Loading grants...</p>
+                <p class="muted">Fetching your publications...</p>
             </div>
         </section>
     </main>

@@ -10,22 +10,24 @@
 
 <body>
     <main class="page">
-        <header class="hero small">
-            <h1>Verify Email</h1>
-            <p>Enter the OTP sent to your official email.</p>
+        <header class="hero">
+            <h1>Verification</h1>
+            <p class="muted">A 6-digit code has been sent to your email.</p>
         </header>
 
         <section class="card">
+            <h2 style="margin-bottom: 24px;">Enter OTP</h2>
             <form class="form" id="verifyForm">
                 <input type="hidden" name="email" id="verifyEmail" />
-                <label>OTP Code
-                    <input type="text" name="code" required maxlength="6" />
+                <label>One-Time Password
+                    <input type="text" name="code" placeholder="000000" required maxlength="6"
+                        style="text-align: center; font-size: 1.5rem; letter-spacing: 12px;" />
                 </label>
-                <button class="btn primary" type="submit">Verify</button>
+                <button class="btn primary" type="submit">Verify Account</button>
             </form>
 
-            <form class="form" id="resendForm">
-                <button class="btn ghost" type="submit">Resend OTP</button>
+            <form class="form" id="resendForm" style="margin-top: 16px;">
+                <button class="btn ghost" type="submit">Didn't receive it? Resend OTP</button>
             </form>
         </section>
     </main>

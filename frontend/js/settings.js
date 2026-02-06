@@ -1,3 +1,4 @@
+checkAuth();
 const passwordForm = document.getElementById('passwordForm');
 if (passwordForm) {
     // Check if password change is required

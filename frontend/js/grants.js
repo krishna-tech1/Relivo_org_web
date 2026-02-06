@@ -1,3 +1,4 @@
+checkAuth();
 async function loadGrant() {
     const urlParams = new URLSearchParams(window.location.search);
     const grantId = urlParams.get('id');
