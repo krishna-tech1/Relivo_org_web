@@ -34,8 +34,8 @@ def send_otp_email(email: str, code: str) -> None:
                 server.send_message(msg)
         else:
             logger.info(f"Connecting to {server_addr}:{port} via STARTTLS...")
-            logger.debug(f"Using Username: {settings.MAIL_USERNAME[:4]}... (Len: {len(settings.MAIL_USERNAME)})")
-            logger.debug(f"Using Password Len: {len(settings.MAIL_PASSWORD)}")
+            logger.info(f"Using Username: {settings.MAIL_USERNAME[:5]}... (Len: {len(settings.MAIL_USERNAME)})")
+            logger.info(f"Using Password: {settings.MAIL_PASSWORD[:5]}... (Len: {len(settings.MAIL_PASSWORD)})")
             with smtplib.SMTP(server_addr, port, timeout=15) as server:
                 logger.debug("SMTP connection established, starting TLS...")
                 server.starttls()
