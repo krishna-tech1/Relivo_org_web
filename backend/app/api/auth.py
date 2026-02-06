@@ -1,7 +1,10 @@
 from datetime import datetime, timedelta, timezone
+import logging
 import random
 import string
 from fastapi import APIRouter, Depends, Form, HTTPException, Request, BackgroundTasks
+
+logger = logging.getLogger(__name__)
 from fastapi.responses import RedirectResponse, JSONResponse
 from sqlalchemy.orm import Session
 
