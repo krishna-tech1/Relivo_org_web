@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grant Form</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="hero small">
+      <h1>{% if grant %}Edit Grant{% else %}Create Grant{% endif %}</h1>
+    </header>
+
+    <section class="card">
+      <form class="form" method="post" action="{% if grant %}/org/grants/{{ grant.id }}/edit{% else %}/org/grants/create{% endif %}">
+        <label>Title
+          <input type="text" name="title" value="{{ grant.title if grant else '' }}" required />
+        </label>
+        <label>Apply URL
+          <input type="url" name="apply_url" value="{{ grant.apply_url if grant else '' }}" required />
+        </label>
+        <label>Deadline (YYYY-MM-DD)
+          <input type="date" name="deadline" value="{{ grant.deadline.date() if grant and grant.deadline else '' }}" />
+        </label>
+        <label>Amount
+          <input type="text" name="amount" value="{{ grant.amount if grant else '' }}" />
+        </label>
+        <label>Refugee Country
+          <input type="text" name="refugee_country" value="{{ grant.refugee_country if grant else '' }}" />
+        </label>
+        <label>Description
+          <textarea name="description" rows="4">{{ grant.description if grant else '' }}</textarea>
+        </label>
+        <label>Eligibility
+          <textarea name="eligibility" rows="4">{{ grant.eligibility if grant else '' }}</textarea>
+        </label>
+
+        <button class="btn primary" type="submit">Save</button>
+        <a class="btn ghost" href="/dashboard">Cancel</a>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Organization Dashboard</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <main class="page wide">
+    <header class="hero small">
+      <div>
+        <h1>{{ org.name }}</h1>
+        <p>{{ org.contact_email }} - {{ org.country }}</p>
+      </div>
+      <div class="actions">
+        <a class="btn" href="/grants/new">New Grant</a>
+        <a class="btn" href="/settings/password">Settings</a>
+        <a class="btn ghost" href="/auth/logout">Logout</a>
+      </div>
+    </header>
+
+    
+    <section class="card stats">
+      <div class="stat">
+        <p class="muted">Total Grants</p>
+        <h3>{{ total_grants }}</h3>
+      </div>
+      <div class="stat">
+        <p class="muted">Active Grants</p>
+        <h3>{{ active_grants }}</h3>
+      </div>
+      <div class="stat">
+        <p class="muted">Inactive Grants</p>
+        <h3>{{ inactive_grants }}</h3>
+      </div>
+    </section>
+
+<section class="card">
+      <h2>Your Grants</h2>
+      {% if grants %}
+      <div class="grid">
+        {% for grant in grants %}
+        <div class="grant">
+          <h3>{{ grant.title }}</h3>
+          <p class="muted">{{ grant.organizer }}</p>
+          <p>{{ grant.description or "No description" }}</p>
+          <div class="grant-actions">
+            <a class="btn" href="/grants/{{ grant.id }}/edit">Edit</a>
+            <form method="post" action="/org/grants/{{ grant.id }}/delete">
+              <button class="btn danger" type="submit">Delete</button>
+            </form>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="muted">No grants yet. Create your first one.</p>
+      {% endif %}
+    </section>
+  </main>
+</body>
+</html>

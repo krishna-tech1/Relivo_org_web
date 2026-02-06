@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Organization Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+    <main class="page wide">
+        <header class="hero small">
+            <div>
+                <h1 id="orgName">Loading...</h1>
+                <p id="orgInfo"></p>
+            </div>
+            <div class="actions">
+                <a class="btn" href="grant_form.html">New Grant</a>
+                <a class="btn" href="settings.html">Settings</a>
+                <button class="btn ghost" id="logoutBtn">Logout</button>
+            </div>
+        </header>
+
+
+        <section class="card stats">
+            <div class="stat">
+                <p class="muted">Total Grants</p>
+                <h3 id="totalGrants">0</h3>
+            </div>
+            <div class="stat">
+                <p class="muted">Active Grants</p>
+                <h3 id="activeGrants">0</h3>
+            </div>
+            <div class="stat">
+                <p class="muted">Inactive Grants</p>
+                <h3 id="inactiveGrants">0</h3>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Your Grants</h2>
+            <div id="grantsList" class="grid">
+                <p class="muted">Loading grants...</p>
+            </div>
+        </section>
+    </main>
+    <script src="js/config.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Grant Form</title>
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+    <main class="page">
+        <header class="hero small">
+            <h1 id="formTitle">Create Grant</h1>
+        </header>
+
+        <section class="card">
+            <form class="form" id="grantForm">
+                <label>Title
+                    <input type="text" name="title" id="grantTitle" required />
+                </label>
+                <label>Apply URL
+                    <input type="url" name="apply_url" id="grantApplyUrl" required />
+                </label>
+                <label>Deadline (YYYY-MM-DD)
+                    <input type="date" name="deadline" id="grantDeadline" />
+                </label>
+                <label>Amount
+                    <input type="text" name="amount" id="grantAmount" />
+                </label>
+                <label>Refugee Country
+                    <input type="text" name="refugee_country" id="grantCountry" />
+                </label>
+                <label>Description
+                    <textarea name="description" id="grantDescription" rows="4"></textarea>
+                </label>
+                <label>Eligibility
+                    <textarea name="eligibility" id="grantEligibility" rows="4"></textarea>
+                </label>
+
+                <button class="btn primary" type="submit">Save</button>
+                <a class="btn ghost" href="dashboard.html">Cancel</a>
+            </form>
+        </section>
+    </main>
+    <script src="js/config.js"></script>
+    <script src="js/grants.js"></script>
+</body>
+
+</html>

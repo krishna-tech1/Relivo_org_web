@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Organization Login</title>
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+    <main class="page">
+        <header class="hero small">
+            <h1>Organization Login</h1>
+            <p>Use your official email and password.</p>
+        </header>
+
+        <section class="card">
+            <form class="form" id="loginForm">
+                <label>Email
+                    <input type="email" name="email" required />
+                </label>
+                <label>Password
+                    <input type="password" name="password" required />
+                </label>
+                <button class="btn primary" type="submit">Login</button>
+                <a href="forgot-password.html" class="btn ghost">Forgot Password?</a>
+            </form>
+            <p class="muted">New here? <a href="register.html">Register your organization</a>.</p>
+        </section>
+    </main>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+
+</html>

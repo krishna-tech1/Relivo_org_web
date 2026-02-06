@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Register Organization</title>
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+    <main class="page">
+        <header class="hero small">
+            <h1>Register Your Organization</h1>
+            <p>Verify your official email to start approval.</p>
+        </header>
+
+        <section class="card">
+            <form class="form" id="registerForm">
+                <label>Organization Name
+                    <input type="text" name="name" required />
+                </label>
+                <label>Official Organization Email
+                    <input type="email" name="contact_email" required />
+                </label>
+                <label>Country
+                    <input type="text" name="country" required />
+                </label>
+                <label>Organization Type
+                    <select name="org_type" required>
+                        <option value="Government">Government</option>
+                        <option value="NGO">NGO</option>
+                        <option value="Private">Private</option>
+                    </select>
+                </label>
+                <label>Official Website (optional)
+                    <input type="url" name="website" />
+                </label>
+
+                <label>Set Password
+                    <input type="password" name="password" id="regPassword" required minlength="8" />
+                </label>
+                <label>Confirm Password
+                    <input type="password" id="regConfirmPassword" required minlength="8" />
+                </label>
+
+                <button class="btn primary" type="submit">Verify Email & Register</button>
+            </form>
+        </section>
+    </main>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+
+</html>
