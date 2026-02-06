@@ -72,6 +72,16 @@ def get_grant(
         raise HTTPException(status_code=404, detail="Grant not found")
     return grant
 
+@app.get("/health/email")
+def test_email(email: str, db: Session = Depends(get_db)):
+    from app.core.email_utils import send_otp_email
+    try:
+        send_otp_email(email, "123456")
+        return {"status": "success", "message": f"Test email sent to {email}"}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
+
 @app.get("/health")
 def health_check(db: Session = Depends(get_db)):
     try:

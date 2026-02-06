@@ -34,8 +34,11 @@ def send_otp_email(email: str, code: str) -> None:
         else:
             logger.info(f"Connecting to {server_addr}:{port} via STARTTLS...")
             with smtplib.SMTP(server_addr, port, timeout=15) as server:
+                logger.debug("SMTP connection established, starting TLS...")
                 server.starttls()
+                logger.debug("STARTTLS successful, logging in...")
                 server.login(settings.MAIL_USERNAME, settings.MAIL_PASSWORD)
+                logger.debug("Login successful, sending message...")
                 server.send_message(msg)
         logger.info(f"OTP email sent successfully to {email}")
     except Exception as e:
@@ -68,5 +71,6 @@ def send_password_changed_email(email: str) -> None:
                 server.starttls()
                 server.login(settings.MAIL_USERNAME, settings.MAIL_PASSWORD)
                 server.send_message(msg)
+            logger.info(f"Password change email sent successfully to {email}")
     except Exception as e:
         logger.error(f"Failed to send password change email to {email}: {str(e)}")

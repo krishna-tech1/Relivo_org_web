@@ -194,8 +194,10 @@ def login(
         raise HTTPException(status_code=404, detail="Organization not found")
 
     if not security.verify_password(password, org.password or ""):
+        logger.warning(f"Login failed: Invalid password for organization email: {email}")
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
+    logger.info(f"Login successful for organization: {email}")
     token = security.create_access_token(subject=org.contact_email, org_id=org.id, role="organization")
     
     # Return different status depending on approval
@@ -276,13 +278,17 @@ def forgot_password_request(background_tasks: BackgroundTasks, email: str = Form
     email = email.lower().strip()
     org = db.query(models.Organization).filter(models.Organization.contact_email == email).first()
     if not org:
+        logger.info(f"Forgot password request: Email not found in database: {email}")
         # For security, don't reveal if org exists
         return {"message": "If this email is registered, an OTP has been sent."}
 
+    logger.info(f"Forgot password request: Found organization for {email}. Generating OTP.")
     otp = _generate_otp()
     org.otp = otp
     org.otp_expires = datetime.now(timezone.utc) + timedelta(minutes=10)
     db.commit()
+    
+    logger.info(f"Adding background task to send OTP to {email}")
     background_tasks.add_task(send_otp_email, email, otp)
 
     return {"message": "If this email is registered, an OTP has been sent."}
