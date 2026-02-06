@@ -16,13 +16,8 @@ def on_startup():
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5500",
-        "http://127.0.0.1:5500",
-        "https://relivo-org-3xpkel8xr-krishna-tech1s-projects.vercel.app",
-        "https://relivo-org-web.vercel.app", # Add a generic one if you have it
-    ],
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )

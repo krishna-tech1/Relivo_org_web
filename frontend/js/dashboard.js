@@ -3,8 +3,7 @@ async function loadDashboard() {
         const response = await fetch(`${CONFIG.API_BASE_URL}/api/dashboard_data`, {
             headers: {
                 ...getAuthHeaders()
-            },
-            credentials: 'include'
+            }
         });
         if (response.status === 401) {
             window.location.href = 'login.html';
@@ -75,8 +74,7 @@ async function deleteGrant(id) {
             method: 'POST',
             headers: {
                 ...getAuthHeaders()
-            },
-            credentials: 'include'
+            }
         });
 
         if (response.ok) {
@@ -92,8 +90,7 @@ async function deleteGrant(id) {
 
 document.getElementById('logoutBtn')?.addEventListener('click', async () => {
     await fetch(`${CONFIG.API_BASE_URL}/auth/logout`, {
-        headers: getAuthHeaders(),
-        credentials: 'include'
+        headers: getAuthHeaders()
     });
     localStorage.removeItem('org_token');
     window.location.href = 'login.html';

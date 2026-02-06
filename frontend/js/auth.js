@@ -30,8 +30,7 @@ if (loginForm) {
         try {
             const response = await fetch(`${CONFIG.API_BASE_URL}/auth/login`, {
                 method: 'POST',
-                body: formData,
-                credentials: 'include'
+                body: formData
             });
 
             if (response.ok) {
@@ -79,8 +78,7 @@ if (registerForm) {
         try {
             const response = await fetch(`${CONFIG.API_BASE_URL}/auth/register`, {
                 method: 'POST',
-                body: formData,
-                credentials: 'include'
+                body: formData
             });
 
             if (response.ok) {
@@ -113,8 +111,7 @@ if (verifyForm) {
         try {
             const response = await fetch(`${CONFIG.API_BASE_URL}/auth/verify`, {
                 method: 'POST',
-                body: formData,
-                credentials: 'include'
+                body: formData
             });
 
             if (response.ok) {
@@ -149,8 +146,7 @@ if (resendForm) {
         try {
             const response = await fetch(`${CONFIG.API_BASE_URL}/auth/resend-otp`, {
                 method: 'POST',
-                body: formData,
-                credentials: 'include'
+                body: formData
             });
 
             if (response.ok) {
@@ -174,8 +170,7 @@ if (forgotRequestForm) {
         try {
             const response = await fetch(`${CONFIG.API_BASE_URL}/auth/forgot-password/request`, {
                 method: 'POST',
-                body: formData,
-                credentials: 'include'
+                body: formData
             });
             const data = await response.json();
             if (response.ok) {
@@ -201,8 +196,7 @@ if (forgotResetForm) {
         try {
             const response = await fetch(`${CONFIG.API_BASE_URL}/auth/forgot-password/reset`, {
                 method: 'POST',
-                body: formData,
-                credentials: 'include'
+                body: formData
             });
             const data = await response.json();
             if (response.ok) {

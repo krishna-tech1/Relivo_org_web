@@ -4,8 +4,7 @@ if (passwordForm) {
     (async () => {
         try {
             const response = await fetch(`${CONFIG.API_BASE_URL}/api/dashboard_data`, {
-                headers: getAuthHeaders(),
-                credentials: 'include'
+                headers: getAuthHeaders()
             });
             if (response.ok) {
                 const data = await response.json();
@@ -26,8 +25,7 @@ if (passwordForm) {
             const response = await fetch(`${CONFIG.API_BASE_URL}/auth/change-password`, {
                 method: 'POST',
                 body: formData,
-                headers: getAuthHeaders(),
-                credentials: 'include'
+                headers: getAuthHeaders()
             });
 
             if (response.ok) {
