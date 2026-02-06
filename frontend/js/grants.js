@@ -6,6 +6,7 @@ async function loadGrant() {
         document.getElementById('formTitle').textContent = 'Edit Grant';
         try {
             const response = await fetch(`${CONFIG.API_BASE_URL}/api/grants/${grantId}`, {
+                headers: getAuthHeaders(),
                 credentials: 'include'
             });
             if (response.ok) {
@@ -42,6 +43,7 @@ if (grantForm) {
             const response = await fetch(url, {
                 method: 'POST',
                 body: formData,
+                headers: getAuthHeaders(),
                 credentials: 'include'
             });
 

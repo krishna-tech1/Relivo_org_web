@@ -213,7 +213,11 @@ def login(
     elif org.status and org.status.lower() not in ("active", "approved"):
         redirect_target = "pending"
 
-    resp = JSONResponse(content={"message": "Login successful", "redirect": redirect_target})
+    resp = JSONResponse(content={
+        "message": "Login successful", 
+        "redirect": redirect_target,
+        "access_token": token
+    })
     resp.set_cookie(
         "org_token", 
         token, 

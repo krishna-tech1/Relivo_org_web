@@ -5,13 +5,20 @@ function getCookie(name) {
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
+// Global Auth Header Helper
+function getAuthHeaders() {
+    const token = localStorage.getItem('org_token') || getCookie('org_token');
+    return token ? { 'Authorization': `Bearer ${token}` } : {};
+}
+
 // Check if logged in
 function checkAuth() {
-    const token = getCookie('org_token');
+    const token = localStorage.getItem('org_token') || getCookie('org_token');
     if (!token && !window.location.pathname.includes('login.html') && !window.location.pathname.includes('register.html') && !window.location.pathname.includes('index.html')) {
         window.location.href = 'login.html';
     }
 }
+checkAuth(); // Call it immediately on check pages
 
 // Handle Login
 const loginForm = document.getElementById('loginForm');
@@ -34,6 +41,9 @@ if (loginForm) {
                     window.location.href = url.pathname.split('/').pop() + '.html';
                 } else {
                     const data = await response.json();
+                    if (data.access_token) {
+                        localStorage.setItem('org_token', data.access_token);
+                    }
                     if (data.redirect) {
                         window.location.href = data.redirect + '.html';
                     } else {

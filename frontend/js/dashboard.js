@@ -1,6 +1,9 @@
 async function loadDashboard() {
     try {
         const response = await fetch(`${CONFIG.API_BASE_URL}/api/dashboard_data`, {
+            headers: {
+                ...getAuthHeaders()
+            },
             credentials: 'include'
         });
         if (response.status === 401) {
@@ -70,6 +73,9 @@ async function deleteGrant(id) {
     try {
         const response = await fetch(`${CONFIG.API_BASE_URL}/org/grants/${id}/delete`, {
             method: 'POST',
+            headers: {
+                ...getAuthHeaders()
+            },
             credentials: 'include'
         });
 
@@ -85,7 +91,11 @@ async function deleteGrant(id) {
 }
 
 document.getElementById('logoutBtn')?.addEventListener('click', async () => {
-    await fetch(`${CONFIG.API_BASE_URL}/auth/logout`, { credentials: 'include' });
+    await fetch(`${CONFIG.API_BASE_URL}/auth/logout`, {
+        headers: getAuthHeaders(),
+        credentials: 'include'
+    });
+    localStorage.removeItem('org_token');
     window.location.href = 'login.html';
 });
 
