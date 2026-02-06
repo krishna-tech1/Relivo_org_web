@@ -12,7 +12,7 @@ from app.api.deps import get_db
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
-
+#code
 def _generate_otp() -> str:
     return ''.join(random.choices(string.digits, k=6))
 
@@ -214,7 +214,13 @@ def login(
         redirect_target = "pending"
 
     resp = JSONResponse(content={"message": "Login successful", "redirect": redirect_target})
-    resp.set_cookie("org_token", token, httponly=True, samesite="lax")
+    resp.set_cookie(
+        "org_token", 
+        token, 
+        httponly=False, 
+        samesite="none", 
+        secure=True
+    )
     return resp
 
 
@@ -265,7 +271,11 @@ def change_password(
 @router.get("/logout")
 def logout():
     resp = JSONResponse(content={"message": "Logged out"})
-    resp.delete_cookie("org_token")
+    resp.delete_cookie(
+        "org_token",
+        samesite="none",
+        secure=True
+    )
     return resp
 
 
