@@ -33,6 +33,7 @@ def register(
     website: str | None = Form(None),
     db: Session = Depends(get_db)
 ):
+    contact_email = contact_email.lower().strip()
     # Check if organization already exists
     existing_org = db.query(models.Organization).filter(models.Organization.contact_email == contact_email).first()
     existing_user = db.query(models.User).filter(models.User.email == contact_email).first()
@@ -132,6 +133,7 @@ def register(
 
 @router.post("/resend-otp")
 def resend_otp(background_tasks: BackgroundTasks, email: str = Form(...), db: Session = Depends(get_db)):
+    email = email.lower().strip()
     org = db.query(models.Organization).filter(models.Organization.contact_email == email).first()
     if not org:
         raise HTTPException(status_code=404, detail="Organization not found")
@@ -154,6 +156,7 @@ def verify_otp(
     code: str = Form(...),
     db: Session = Depends(get_db)
 ):
+    email = email.lower().strip()
     org = db.query(models.Organization).filter(models.Organization.contact_email == email).first()
     if not org:
         raise HTTPException(status_code=404, detail="Organization not found")
@@ -185,6 +188,7 @@ def login(
     password: str = Form(...),
     db: Session = Depends(get_db)
 ):
+    email = email.lower().strip()
     org = db.query(models.Organization).filter(models.Organization.contact_email == email).first()
     if not org:
         raise HTTPException(status_code=404, detail="Organization not found")
@@ -208,13 +212,6 @@ def login(
         "redirect": redirect_target,
         "access_token": token
     })
-    resp.set_cookie(
-        "org_token", 
-        token, 
-        httponly=False, 
-        samesite="none", 
-        secure=True
-    )
     return resp
 
 
@@ -276,6 +273,7 @@ def logout():
 
 @router.post("/forgot-password/request")
 def forgot_password_request(background_tasks: BackgroundTasks, email: str = Form(...), db: Session = Depends(get_db)):
+    email = email.lower().strip()
     org = db.query(models.Organization).filter(models.Organization.contact_email == email).first()
     if not org:
         # For security, don't reveal if org exists
@@ -284,8 +282,6 @@ def forgot_password_request(background_tasks: BackgroundTasks, email: str = Form
     otp = _generate_otp()
     org.otp = otp
     org.otp_expires = datetime.now(timezone.utc) + timedelta(minutes=10)
-    db.commit()
-
     db.commit()
     background_tasks.add_task(send_otp_email, email, otp)
 
@@ -299,6 +295,7 @@ def forgot_password_reset(
     new_password: str = Form(...),
     db: Session = Depends(get_db)
 ):
+    email = email.lower().strip()
     org = db.query(models.Organization).filter(models.Organization.contact_email == email).first()
     if not org or org.otp != otp:
         raise HTTPException(status_code=400, detail="Invalid OTP or email")
