@@ -11,11 +11,12 @@
   --accent: #6366f1;
   /* Indigo for highlight */
 
-  --bg-main: #f8fafc;
-  /* Soft Gray-Blue */
+  --bg-main: #eff3f8;
+  /* Sophisticated Slate-Gray */
   --bg-white: #ffffff;
+  --bg-glass: rgba(255, 255, 255, 0.85);
 
-  --text-main: #0f172a;
+  --text-main: #1e293b;
   --text-muted: #64748b;
   --text-on-dark: #f8fafc;
 
@@ -64,7 +65,11 @@
 
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: var(--bg-main);
+  background:
+    radial-gradient(at top left, #f8fafc, transparent),
+    radial-gradient(at bottom right, #e2e8f0, transparent),
+    var(--bg-main);
+  background-attachment: fixed;
   color: var(--text-main);
   line-height: 1.6;
   overflow-x: hidden;
@@ -135,9 +140,11 @@ h4,
 .card {
   background: var(--bg-white);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-xl);
+  box-shadow:
+    0 4px 6px -1px rgba(15, 23, 42, 0.05),
+    0 20px 25px -5px rgba(15, 23, 42, 0.1);
   padding: 48px;
-  border: 1px solid rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.82);
   position: relative;
   overflow: hidden;
   transition: var(--transition);
