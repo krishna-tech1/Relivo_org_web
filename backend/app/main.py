@@ -41,6 +41,9 @@ def dashboard_data(
     active_grants = grants_query.filter(models.Grant.is_active.is_(True)).count()
     inactive_grants = total_grants - active_grants
     
+    trash_count = grants_query.filter(models.Grant.status == "DELETION_PENDING").count()
+    total_visible = total_grants - trash_count
+
     return {
         "org": {
             "name": org.name,
@@ -53,12 +56,15 @@ def dashboard_data(
             "id": g.id,
             "title": g.title,
             "description": g.description,
+            "eligibility": g.eligibility,
             "organizer": g.organizer,
-            "is_active": g.is_active
+            "is_active": g.is_active,
+            "status": g.status or "LIVE"
         } for g in grants_list],
-        "total_grants": total_grants,
+        "total_grants": total_visible,
         "active_grants": active_grants,
-        "inactive_grants": inactive_grants,
+        "inactive_grants": total_visible - active_grants,
+        "trash_count": trash_count
     }
 
 @app.get("/api/grants/{grant_id}")

@@ -32,32 +32,94 @@
             </div>
         </nav>
 
-        <section class="stats-grid">
-            <div class="stat-card">
-                <p class="stat-label">Total Published</p>
-                <div class="stat-value" id="totalGrants">0</div>
+        <section class="tabs"
+            style="display: flex; gap: 32px; margin-bottom: 32px; border-bottom: 2px solid #e2e8f0; margin-top: 40px;">
+            <button class="tab-btn active" onclick="switchTab('active')" id="tab-active"
+                style="padding: 12px 4px; background: none; border: none; font-weight: 700; color: var(--primary); cursor: pointer; border-bottom: 3px solid var(--accent); transition: var(--transition);">
+                Active Workspace
+            </button>
+            <button class="tab-btn" onclick="switchTab('pending')" id="tab-pending"
+                style="padding: 12px 4px; background: none; border: none; font-weight: 600; color: var(--text-muted); cursor: pointer; border-bottom: 3px solid transparent; transition: var(--transition);">
+                Pending Deletion
+            </button>
+        </section>
+
+        <section id="activeWorkspace">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <p class="stat-label">Total Published</p>
+                    <div class="stat-value" id="totalGrants">0</div>
+                </div>
+                <div class="stat-card" style="border-bottom-color: var(--success);">
+                    <p class="stat-label">Active Listings</p>
+                    <div class="stat-value" id="activeGrants">0</div>
+                </div>
+                <div class="stat-card" style="border-bottom-color: var(--warning);">
+                    <p class="stat-label">Pending Review</p>
+                    <div class="stat-value" id="inactiveGrants">0</div>
+                </div>
             </div>
-            <div class="stat-card" style="border-bottom-color: var(--success);">
-                <p class="stat-label">Active Listings</p>
-                <div class="stat-value" id="activeGrants">0</div>
-            </div>
-            <div class="stat-card" style="border-bottom-color: var(--warning);">
-                <p class="stat-label">Pending Review</p>
-                <div class="stat-value" id="inactiveGrants">0</div>
+
+            <div style="margin-top: 60px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+                    <h2 style="font-size: 1.75rem;">Your Grant Portfolio</h2>
+                    <div class="muted">Manage and monitor all your grant publications.</div>
+                </div>
+                <div id="grantsList"
+                    style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 32px;">
+                    <p class="muted">Synchronizing data with secure server...</p>
+                </div>
             </div>
         </section>
 
-        <section>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
-                <h2 style="font-size: 1.75rem;">Your Grant Portfolio</h2>
-                <div class="muted">Manage and monitor all your grant publications.</div>
+        <section id="pendingDeletion" style="display: none;">
+            <div
+                style="background: white; padding: 40px; border-radius: var(--radius-lg); text-align: center; margin-bottom: 40px; border: 1px solid #fee2e2;">
+                <i data-lucide="trash-2"
+                    style="width: 48px; height: 48px; color: var(--danger); margin-bottom: 16px;"></i>
+                <h3 style="color: var(--primary);">Trash Bin</h3>
+                <p class="muted">Grants here are hidden from the public but not yet permanently removed. You can restore
+                    them or delete them forever.</p>
             </div>
-
-            <div id="grantsList" class="grid">
-                <!-- Data injected by dashboard.js -->
-                <p class="muted">Synchronizing data with secure server...</p>
+            <div id="pendingGrantsList"
+                style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 32px;">
+                <!-- Pending Deletion Grants Load Here -->
             </div>
         </section>
+
+        <!-- Grant Details Modal -->
+        <div id="grantModal" class="modal-overlay"
+            style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px); z-index: 1000; align-items: center; justify-content: center; padding: 20px;">
+            <div class="modal-content card"
+                style="width: 100%; max-width: 700px; max-height: 90vh; overflow-y: auto; position: relative; animation: slideDownFade 0.4s ease;">
+                <button onclick="closeModal()"
+                    style="position: absolute; top: 20px; right: 20px; background: #f1f5f9; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                    <i data-lucide="x"></i>
+                </button>
+                <div id="modalBody" style="text-align: left;">
+                    <h2 id="modalTitle" style="margin-bottom: 8px; font-size: 2rem; color: var(--primary);">Grant Title
+                    </h2>
+                    <p id="modalOrg" class="muted" style="margin-bottom: 32px; font-weight: 600;">Organization Name</p>
+
+                    <div style="margin-bottom: 32px;">
+                        <h4
+                            style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 12px; font-weight: 800;">
+                            Full Description</h4>
+                        <div id="modalDesc" style="line-height: 1.8; color: var(--primary); white-space: pre-wrap;">
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 32px;">
+                        <h4
+                            style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 12px; font-weight: 800;">
+                            Eligibility Criteria</h4>
+                        <div id="modalElig" style="line-height: 1.8; color: var(--primary); white-space: pre-wrap;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <script src="js/config.js"></script>

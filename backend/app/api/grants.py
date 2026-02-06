@@ -96,8 +96,51 @@ def delete_grant(
     if not grant:
         raise HTTPException(status_code=404, detail="Grant not found")
 
+    # Move to trash (Pending Deletion) instead of deleting
+    grant.status = "DELETION_PENDING"
+    db.commit()
+
+    return {"message": "Grant moved to pending deletion"}
+
+
+@router.post("/{grant_id}/permanent-delete")
+def permanent_delete_grant(
+    grant_id: int,
+    db: Session = Depends(get_db),
+    org: models.Organization = Depends(get_current_org)
+):
+    grant = db.query(models.Grant).filter(
+        models.Grant.id == grant_id, 
+        models.Grant.organization_id == org.id,
+        models.Grant.status == "DELETION_PENDING"
+    ).first()
+    
+    if not grant:
+        raise HTTPException(status_code=404, detail="Grant not found in pending deletion")
+
     db.delete(grant)
     db.commit()
 
-    return {"message": "Grant deleted successfully"}
+    return {"message": "Grant permanently deleted"}
+
+
+@router.post("/{grant_id}/restore")
+def restore_grant(
+    grant_id: int,
+    db: Session = Depends(get_db),
+    org: models.Organization = Depends(get_current_org)
+):
+    grant = db.query(models.Grant).filter(
+        models.Grant.id == grant_id, 
+        models.Grant.organization_id == org.id,
+        models.Grant.status == "DELETION_PENDING"
+    ).first()
+    
+    if not grant:
+        raise HTTPException(status_code=404, detail="Grant not found in pending deletion")
+
+    grant.status = "LIVE"
+    db.commit()
+
+    return {"message": "Grant restored to workspace"}
 
