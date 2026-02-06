@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request, Depends, HTTPException
+import logging
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from sqlalchemy import text
@@ -12,7 +13,10 @@ app = FastAPI(title="Relivo Organization Portal API")
 
 @app.on_event("startup")
 def on_startup():
-    ensure_schema()
+    try:
+        ensure_schema()
+    except Exception as e:
+        print(f"Startup error ignored: {e}")
 
 app.add_middleware(
     CORSMiddleware,
