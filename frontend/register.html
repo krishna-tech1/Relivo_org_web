@@ -10,7 +10,11 @@
 </head>
 
 <body>
+<<<<<<< HEAD
     <main class="page center" style="padding: var(--space-12) var(--space-6);">
+=======
+    <main class="page center" style="padding: 60px 24px;">
+>>>>>>> 8321376b47c89c3881ec5686c56253814a136462
         <header class="hero">
             <img src="assets/logo.png" alt="Relivo Logo" class="logo" />
             <p>Empowering organizations to deliver impactful grants.</p>
@@ -20,6 +24,7 @@
             <form class="form" id="registerForm">
                 <div class="grid-2">
                     <div class="input-group">
+<<<<<<< HEAD
                         <label for="org-name">Organization Name</label>
                         <input type="text" id="org-name" name="name" placeholder="Relivo Org" required
                             autocomplete="organization" />
@@ -28,10 +33,19 @@
                         <label for="country">Country</label>
                         <input type="text" id="country" name="country" placeholder="Country" required
                             autocomplete="country-name" />
+=======
+                        <label>Organization Name</label>
+                        <input type="text" name="name" placeholder="Relivo Org" required />
+                    </div>
+                    <div class="input-group">
+                        <label>Country</label>
+                        <input type="text" name="country" placeholder="Country" required />
+>>>>>>> 8321376b47c89c3881ec5686c56253814a136462
                     </div>
                 </div>
 
                 <div class="input-group">
+<<<<<<< HEAD
                     <label for="contact-email">Official Contact Email</label>
                     <input type="email" id="contact-email" name="contact_email" placeholder="official@org.org" required
                         autocomplete="email" />
@@ -41,20 +55,36 @@
                     <div class="input-group">
                         <label for="org-type">Organization Type</label>
                         <select id="org-type" name="org_type" required>
+=======
+                    <label>Official Contact Email</label>
+                    <input type="email" name="contact_email" placeholder="official@org.org" required />
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <div class="input-group">
+                        <label>Organization Type</label>
+                        <select name="org_type" required>
+>>>>>>> 8321376b47c89c3881ec5686c56253814a136462
                             <option value="NGO" selected>Non-Profit (NGO)</option>
                             <option value="Government">Government Body</option>
                             <option value="Private">Private Foundation / Corp</option>
                         </select>
                     </div>
                     <div class="input-group">
+<<<<<<< HEAD
                         <label for="website">Website (Optional)</label>
                         <input type="url" id="website" name="website" placeholder="https://www.example.org"
                             autocomplete="url" />
+=======
+                        <label>Website (Optional)</label>
+                        <input type="url" name="website" placeholder="https://www.example.org" />
+>>>>>>> 8321376b47c89c3881ec5686c56253814a136462
                     </div>
                 </div>
 
                 <div class="grid-2">
                     <div class="input-group">
+<<<<<<< HEAD
                         <label for="reg-password">Password</label>
                         <input type="password" id="reg-password" name="password" placeholder="••••••••" required
                             minlength="8" autocomplete="new-password" />
@@ -69,10 +99,25 @@
 
                 <button class="btn primary" type="submit" style="margin-top: var(--space-4);">
                     <i data-lucide="user-plus" aria-hidden="true"></i>
+=======
+                        <label>Password</label>
+                        <input type="password" name="password" id="regPassword" placeholder="••••••••" required
+                            minlength="8" />
+                    </div>
+                    <div class="input-group">
+                        <label>Verify Password</label>
+                        <input type="password" id="regConfirmPassword" placeholder="••••••••" required minlength="8" />
+                    </div>
+                </div>
+
+                <button class="btn primary" type="submit" style="margin-top: 16px;">
+                    <i data-lucide="user-plus"></i>
+>>>>>>> 8321376b47c89c3881ec5686c56253814a136462
                     Register Organization
                 </button>
             </form>
 
+<<<<<<< HEAD
             <div class="auth-footer"
                 style="margin-top: var(--space-8); border-top: 1px solid var(--gray-200); padding-top: var(--space-6);">
                 <p class="muted" style="font-size: var(--text-sm); margin: 0;">
@@ -81,6 +126,11 @@
                         Sign in here
                     </a>
                 </p>
+=======
+            <div class="auth-footer" style="margin-top: 32px; border-top: 1px solid #f1f5f9; padding-top: 24px;">
+                <p class="muted">Already have a portal account? <a href="login.html"
+                        style="color: var(--accent); font-weight: 700;">Sign in here</a></p>
+>>>>>>> 8321376b47c89c3881ec5686c56253814a136462
             </div>
         </section>
     </main>
