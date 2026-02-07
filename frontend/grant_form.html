@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Manage Grant | Relivo Organization Portal</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <main class="page">
+        <header class="hero" style="text-align: left; margin-bottom: var(--space-10);">
+            <a href="dashboard.html" class="muted"
+                style="text-decoration: none; display: inline-flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-6); font-weight: var(--font-semibold); font-size: var(--text-sm); color: var(--gray-600); transition: color var(--transition-fast);">
+                <i data-lucide="chevron-left" style="width: 16px; height: 16px;" aria-hidden="true"></i>
+                Return to Workspace
+            </a>
+            <h1 id="pageTitle"
+                style="font-size: var(--text-4xl); color: var(--primary-900); margin-bottom: var(--space-2);">
+                Create New Grant
+            </h1>
+            <p style="margin: 0;">Publish a new opportunity for humanitarian aid or community support.</p>
+        </header>
+
+        <section class="card">
+            <form class="form" id="grantForm">
+                <input type="hidden" name="grant_id" id="grantId" />
+
+                <div class="input-group">
+                    <label for="grant-title">Grant Title</label>
+                    <input type="text" id="grant-title" name="title"
+                        placeholder="e.g., Refugee Emergency Education Support" required />
+                </div>
+
+                <div class="input-group">
+                    <label for="organizer">Organizer / Department</label>
+                    <input type="text" id="organizer" name="organizer" placeholder="e.g., Dept of Social Welfare"
+                        required />
+                </div>
+
+                <div class="input-group">
+                    <label for="description">Brief Description</label>
+                    <textarea id="description" name="description" rows="4"
+                        placeholder="Detailed objective and scope of this grant..." required></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="apply-url">Full Application URL</label>
+                    <input type="url" id="apply-url" name="apply_url" placeholder="https://..." required />
+                    <span class="input-helper">The URL where applicants can submit their applications</span>
+                </div>
+
+                <div class="grid-2">
+                    <div class="input-group">
+                        <label for="deadline">Application Deadline</label>
+                        <input type="date" id="deadline" name="deadline" />
+                    </div>
+                    <div class="input-group">
+                        <label for="refugee-country">Primary Beneficiary Country</label>
+                        <input type="text" id="refugee-country" name="refugee_country"
+                            placeholder="e.g., Yemen, Syria, etc." required />
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="eligibility">Eligibility Criteria</label>
+                    <textarea id="eligibility" name="eligibility" rows="3"
+                        placeholder="Who is eligible to apply?"></textarea>
+                </div>
+
+                <div class="flex-stack" style="margin-top: var(--space-6);">
+                    <button class="btn primary" type="submit" id="submitBtn">
+                        <i data-lucide="check-circle" aria-hidden="true"></i>
+                        Publish Now
+                    </button>
+                    <a class="btn ghost" href="dashboard.html">Discard Changes</a>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/grants.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

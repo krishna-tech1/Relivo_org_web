@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Account Suspended | Relivo</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <main class="page center">
+        <header class="hero">
+            <div class="empty-state-icon" style="margin-bottom: var(--space-6);">
+                <i data-lucide="alert-octagon" style="width: 64px; height: 64px; color: var(--danger-500);"
+                    aria-hidden="true"></i>
+            </div>
+            <h1>Access Restricted</h1>
+            <p>This organization account has been suspended.</p>
+        </header>
+
+        <section class="card" style="width: 100%; max-width: 500px; text-align: center;">
+            <div class="custom-alert alert-error" style="text-align: left; margin-bottom: var(--space-6);">
+                <i data-lucide="shield-alert" style="flex-shrink: 0; width: 20px; height: 20px;" aria-hidden="true"></i>
+                <p style="margin: 0; line-height: var(--leading-relaxed);">
+                    For security compliance or due to a policy violation, your workspace has been temporarily
+                    restricted.
+                    Please contact our institutional support team for more details or to appeal this decision.
+                </p>
+            </div>
+            <div class="flex-stack" style="flex-direction: column;">
+                <a class="btn primary" href="mailto:support@relivo.org">
+                    <i data-lucide="mail" aria-hidden="true"></i>
+                    Contact Support
+                </a>
+                <a class="btn secondary" href="index.html">Back Home</a>
+            </div>
+        </section>
+    </main>
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

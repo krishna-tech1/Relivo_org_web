@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard | Relivo Organization Portal</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <main class="page">
+        <nav class="dashboard-nav">
+            <div class="nav-content">
+                <div class="user-profile">
+                    <img src="assets/logo.png" alt="Relivo" class="nav-logo" />
+                    <div class="user-avatar" id="avatarInitial">R</div>
+                    <div class="user-info">
+                        <h2 id="orgName">Loading...</h2>
+                        <p id="orgInfo" class="muted">Connecting to gateway...</p>
+                    </div>
+                </div>
+                <div class="flex-stack">
+                    <a class="btn primary" href="grant_form.html" id="createGrantBtn">
+                        <i data-lucide="plus-circle" aria-hidden="true"></i>
+                        Publish Grant
+                    </a>
+                    <button class="btn danger" id="logoutBtn">
+                        <i data-lucide="log-out" aria-hidden="true"></i>
+                        Exit
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <section class="tabs">
+            <button class="tab-btn active" onclick="switchTab('active')" id="tab-active" aria-selected="true">
+                Active Workspace
+            </button>
+            <button class="tab-btn" onclick="switchTab('pending')" id="tab-pending" aria-selected="false">
+                Pending Deletion
+            </button>
+        </section>
+
+        <section id="activeWorkspace">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <p class="stat-label">Total Published</p>
+                    <div class="stat-value" id="totalGrants">0</div>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Active Listings</p>
+                    <div class="stat-value" id="activeGrants" style="color: var(--success-600);">0</div>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Pending Review</p>
+                    <div class="stat-value" id="inactiveGrants" style="color: var(--warning-600);">0</div>
+                </div>
+            </div>
+
+            <div style="margin-top: var(--space-12);">
+                <div
+                    style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: var(--space-8); flex-wrap: wrap; gap: var(--space-4);">
+                    <div>
+                        <h2 style="font-size: var(--text-2xl); margin-bottom: var(--space-1);">Your Grant Portfolio</h2>
+                        <p class="muted" style="font-size: var(--text-sm); margin: 0;">Manage and monitor all your grant
+                            publications.</p>
+                    </div>
+                </div>
+                <div id="grantsList" class="grants-grid">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            <i data-lucide="loader" class="spin" style="width: 48px; height: 48px;"></i>
+                        </div>
+                        <p class="empty-state-description">Synchronizing data with secure server...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pendingDeletion" style="display: none;">
+            <div class="card"
+                style="text-align: center; margin-bottom: var(--space-10); border-color: var(--danger-200);">
+                <div class="empty-state-icon" style="margin-bottom: var(--space-4);">
+                    <i data-lucide="trash-2" style="width: 48px; height: 48px; color: var(--danger-500);"></i>
+                </div>
+                <h3 style="color: var(--primary-900); margin-bottom: var(--space-2);">Trash Bin</h3>
+                <p class="muted" style="margin: 0;">Grants here are hidden from the public but not yet permanently
+                    removed. You can restore them or delete them forever.</p>
+            </div>
+            <div id="pendingGrantsList" class="grants-grid">
+                <!-- Pending Deletion Grants Load Here -->
+            </div>
+        </section>
+
+        <!-- Grant Details Modal -->
+        <div id="grantModal" class="modal-overlay" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modalTitle" style="font-size: var(--text-2xl); color: var(--primary-900); margin: 0;">Grant
+                        Title</h2>
+                    <button onclick="closeModal()" class="modal-close" aria-label="Close modal">
+                        <i data-lucide="x" aria-hidden="true"></i>
+                    </button>
+                </div>
+
+                <div class="modal-body" id="modalBody">
+                    <p id="modalOrg" class="muted"
+                        style="margin-bottom: var(--space-8); font-weight: var(--font-semibold); font-size: var(--text-sm);">
+                        Organization Name</p>
+
+                    <div style="margin-bottom: var(--space-8);">
+                        <h4
+                            style="font-size: var(--text-xs); font-weight: var(--font-bold); color: var(--accent-600); margin-bottom: var(--space-3); text-transform: uppercase; letter-spacing: 0.05em;">
+                            Full Description
+                        </h4>
+                        <div id="modalDesc"
+                            style="line-height: var(--leading-relaxed); color: var(--primary-800); white-space: pre-wrap;">
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: var(--space-8);">
+                        <h4
+                            style="font-size: var(--text-xs); font-weight: var(--font-bold); color: var(--accent-600); margin-bottom: var(--space-3); text-transform: uppercase; letter-spacing: 0.05em;">
+                            Eligibility Criteria
+                        </h4>
+                        <div id="modalElig"
+                            style="line-height: var(--leading-relaxed); color: var(--primary-800); white-space: pre-wrap;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button onclick="closeModal()" class="btn secondary">Close</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script>
+        lucide.createIcons();
+
+        // Dynamic initial for avatar
+        window.onload = () => {
+            const name = document.getElementById('orgName').textContent;
+            if (name && name !== 'Loading...') {
+                document.getElementById('avatarInitial').textContent = name.charAt(0).toUpperCase();
+            }
+        };
+    </script>
+</body>
+
+</html>
