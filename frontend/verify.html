@@ -17,27 +17,31 @@
         </header>
 
         <section class="card" style="width: 100%; max-width: 450px; text-align: center;">
-            <i data-lucide="shield-check"
-                style="width: 64px; height: 64px; color: var(--accent); margin-bottom: 24px;"></i>
+            <div class="empty-state-icon" style="margin-bottom: var(--space-6);">
+                <i data-lucide="shield-check" style="width: 64px; height: 64px; color: var(--accent-600);"
+                    aria-hidden="true"></i>
+            </div>
 
             <form class="form" id="verifyForm">
                 <input type="hidden" name="email" id="verifyEmail" />
                 <div class="input-group">
-                    <label>OTP Code</label>
-                    <input type="text" name="code" placeholder="123456" required maxlength="6"
-                        style="text-align: center; letter-spacing: 12px; font-size: 2rem; font-weight: 800;" />
+                    <label for="otp-code">Verification Code</label>
+                    <input type="text" id="otp-code" name="code" placeholder="123456" required maxlength="6"
+                        style="text-align: center; letter-spacing: 0.5em; font-size: var(--text-2xl); font-weight: var(--font-bold);" />
                 </div>
                 <button class="btn primary" type="submit">
-                    <i data-lucide="check-circle-2"></i>
+                    <i data-lucide="check-circle" aria-hidden="true"></i>
                     Complete Verification
                 </button>
             </form>
 
-            <div style="margin-top: 32px; border-top: 1px solid #f1f5f9; padding-top: 24px;">
+            <div
+                style="margin-top: var(--space-8); border-top: 1px solid var(--gray-200); padding-top: var(--space-6);">
                 <form id="resendForm">
-                    <p class="muted" style="margin-bottom: 12px;">Didn't receive the code?</p>
+                    <p class="muted" style="margin-bottom: var(--space-3); font-size: var(--text-sm);">Didn't receive
+                        the code?</p>
                     <button class="btn ghost" type="submit">
-                        <i data-lucide="refresh-cw"></i>
+                        <i data-lucide="refresh-cw" aria-hidden="true"></i>
                         Resend Code
                     </button>
                 </form>
