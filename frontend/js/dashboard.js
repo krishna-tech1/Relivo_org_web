@@ -110,28 +110,38 @@ function createGrantCard(grant, isPending) {
     const div = document.createElement('div');
     div.className = 'grant-card';
 
+    const status = grant.status || 'LIVE';
+    let statusBadge = '';
+    if (isPending) {
+        statusBadge = '<span class="badge badge-danger">Pending Deletion</span>';
+    } else if (status === 'LIVE') {
+        statusBadge = '<span class="badge badge-success">Live & Published</span>';
+    } else {
+        statusBadge = `<span class="badge badge-warning">${status}</span>`;
+    }
+
     let footerHtml = '';
     if (isPending) {
         footerHtml = `
-            <div class="grant-footer">
-                <button class="btn ghost" onclick="restoreGrant(${grant.id})" style="flex: 1;">
+            <div class="grant-footer mt-auto">
+                <button class="btn ghost btn-sm" onclick="restoreGrant(${grant.id})" style="flex: 1;">
                     <i data-lucide="rotate-ccw"></i> Restore
                 </button>
-                <button class="btn danger" onclick="permanentDelete(${grant.id})" style="flex: 1;">
-                    <i data-lucide="trash-2"></i> Delete Forever
+                <button class="btn danger btn-sm" onclick="permanentDelete(${grant.id})" style="flex: 1;">
+                    <i data-lucide="trash-2"></i> Wipe
                 </button>
             </div>
         `;
     } else {
         footerHtml = `
-            <div class="grant-footer">
-                <button class="btn primary ghost" onclick="viewGrantDetails(${grant.id})" style="flex: 1;">
+            <div class="grant-footer mt-auto">
+                <button class="btn primary ghost btn-sm" onclick="viewGrantDetails(${grant.id})">
                     <i data-lucide="eye"></i> View
                 </button>
-                <a class="btn ghost" href="grant_form.html?id=${grant.id}" style="flex: 1;">
+                <a class="btn ghost btn-sm" href="grant_form.html?id=${grant.id}">
                     <i data-lucide="edit-3"></i> Edit
                 </a>
-                <button class="btn danger ghost" onclick="softDelete(${grant.id})" title="Move to Trash">
+                <button class="btn danger ghost btn-sm" onclick="softDelete(${grant.id})" title="Move to Trash">
                     <i data-lucide="trash-2"></i>
                 </button>
             </div>
@@ -139,14 +149,24 @@ function createGrantCard(grant, isPending) {
     }
 
     div.innerHTML = `
-        <div class="grant-title">${grant.title}</div>
-        <div class="grant-meta">
-            <span style="display: flex; align-items: center; gap: 4px;">
-                <i data-lucide="building-2" style="width: 14px; height: 14px;"></i>
-                ${grant.organizer || 'Internal'}
-            </span>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--space-4);">
+            ${statusBadge}
+            <i data-lucide="more-vertical" class="muted" style="cursor: pointer;"></i>
         </div>
-        <p class="grant-desc">${grant.description ? grant.description.substring(0, 120) + '...' : 'No description available.'}</p>
+        <div class="grant-title" style="font-weight: 800; color: var(--primary-900);">${grant.title}</div>
+        <div class="grant-meta" style="margin-top: var(--space-2); margin-bottom: var(--space-4);">
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+                <span style="display: flex; align-items: center; gap: 8px;">
+                    <i data-lucide="building" style="width: 14px; height: 14px; color: var(--accent-500);"></i>
+                    ${grant.organizer || 'Internal Org'}
+                </span>
+                <span style="display: flex; align-items: center; gap: 8px;">
+                    <i data-lucide="globe" style="width: 14px; height: 14px; color: var(--primary-400);"></i>
+                    Global Access
+                </span>
+            </div>
+        </div>
+        <p class="grant-desc" style="color: var(--primary-500); line-height: 1.6;">${grant.description ? grant.description.substring(0, 100) + '...' : 'No description provided.'}</p>
         ${footerHtml}
     `;
     return div;

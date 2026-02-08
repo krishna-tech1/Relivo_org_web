@@ -5,6 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Login | Relivo Organization Portal</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230f172a%22/><path d=%22M30 50 L45 65 L70 35%22 stroke=%22%236366f1%22 stroke-width=%2210%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 fill=%22none%22/></svg>">
     <link rel="stylesheet" href="css/styles.css" />
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
@@ -29,8 +31,13 @@
 
                 <div class="input-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="••••••••" required
-                        autocomplete="current-password" />
+                    <div class="password-wrapper">
+                        <input type="password" id="password" name="password" placeholder="••••••••" required
+                            autocomplete="current-password" />
+                        <button type="button" class="password-toggle" onclick="togglePassword('password')">
+                            <i data-lucide="eye"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <button class="btn primary" type="submit">
@@ -39,8 +46,7 @@
                 </button>
             </form>
 
-            <div class="auth-footer mt-8"
-                style="border-top: 1px solid var(--gray-200); padding-top: var(--space-6);">
+            <div class="auth-footer mt-8" style="border-top: 1px solid var(--gray-200); padding-top: var(--space-6);">
                 <p class="mb-2 text-sm">
                     <a href="forgot-password.html" class="muted"
                         style="color: var(--gray-600); font-weight: var(--font-medium);">
