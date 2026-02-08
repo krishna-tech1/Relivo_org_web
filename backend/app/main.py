@@ -8,6 +8,9 @@ from app.api import auth, grants
 from app.api.deps import get_db, get_current_org
 from app.db import models
 from app.db.init_db import ensure_schema
+import os
+from fastapi.staticfiles import StaticFiles
+
 
 app = FastAPI(title="Relivo Organization Portal API")
 
@@ -95,4 +98,16 @@ def health_check(db: Session = Depends(get_db)):
         return {"status": "ok", "database": "connected"}
     except Exception as exc:
         return {"status": "degraded", "database": "unreachable", "error": str(exc)}
+
+# Serve frontend static files
+# Try local path first, fallback to common Render/Docker paths if needed
+frontend_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "frontend"))
+if not os.path.exists(frontend_path):
+    # Fallback if running from a different directory
+    frontend_path = os.path.abspath(os.path.join(os.getcwd(), "frontend"))
+
+if os.path.exists(frontend_path):
+    app.mount("/", StaticFiles(directory=frontend_path, html=True), name="frontend")
+else:
+    print(f"Warning: Frontend path {frontend_path} not found.")
 

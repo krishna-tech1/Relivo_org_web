@@ -11,7 +11,7 @@ from sqlalchemy.orm import Session
 from app.db import models
 from app.core import security
 from app.core.email_utils import send_otp_email, send_password_changed_email
-from app.api.deps import get_db
+from app.api.deps import get_db, get_current_org
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -194,7 +194,8 @@ def login(
     email = email.lower().strip()
     org = db.query(models.Organization).filter(models.Organization.contact_email == email).first()
     if not org:
-        raise HTTPException(status_code=404, detail="Organization not found")
+        logger.warning(f"Login failed: Organization not found for email: {email}")
+        raise HTTPException(status_code=401, detail="Invalid credentials")
 
     if not security.verify_password(password, org.password or ""):
         logger.warning(f"Login failed: Invalid password for organization email: {email}")
@@ -223,31 +224,11 @@ def login(
 @router.post("/change-password")
 def change_password(
     background_tasks: BackgroundTasks,
-    request: Request,
     old_password: str = Form(...),
     new_password: str = Form(...),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    org: models.Organization = Depends(get_current_org)
 ):
-    if request is None:
-        raise HTTPException(status_code=400, detail="Missing request context")
-
-    token = request.cookies.get("org_token")
-    if not token:
-        raise HTTPException(status_code=401, detail="Not authenticated")
-
-    from jose import jwt, JWTError
-    from app.core.config import settings
-
-    try:
-        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
-    except JWTError:
-        raise HTTPException(status_code=401, detail="Invalid token")
-
-    org_id = payload.get("org_id")
-    org = db.query(models.Organization).filter(models.Organization.id == org_id).first()
-    if not org:
-        raise HTTPException(status_code=404, detail="Organization not found")
-
     if not security.verify_password(old_password, org.password or ""):
         raise HTTPException(status_code=400, detail="Old password incorrect")
 
