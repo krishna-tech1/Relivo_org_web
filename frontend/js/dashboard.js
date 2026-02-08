@@ -151,7 +151,6 @@ function createGrantCard(grant, isPending) {
     div.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--space-4);">
             ${statusBadge}
-            <i data-lucide="more-vertical" class="muted" style="cursor: pointer;"></i>
         </div>
         <div class="grant-title" style="font-weight: 800; color: var(--primary-900);">${grant.title}</div>
         <div class="grant-meta" style="margin-top: var(--space-2); margin-bottom: var(--space-4);">
