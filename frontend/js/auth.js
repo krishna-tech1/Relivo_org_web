@@ -85,7 +85,7 @@ if (registerForm) {
 
         const formData = new FormData(registerForm);
         const password = formData.get('password');
-        const confirmPassword = document.getElementById('regConfirmPassword').value;
+        const confirmPassword = document.getElementById('reg-confirm-password').value;
 
         if (password !== confirmPassword) {
             alert('Security Error: New passwords do not match.');
