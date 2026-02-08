@@ -1112,8 +1112,62 @@ input:focus {
     grid-template-columns: 1fr;
   }
 
+  /* Improve Mobile Text Alignment & Layout */
+  .hero,
+  .hero p,
+  .section-title,
+  .brand {
+    text-align: center;
+    justify-content: center;
+  }
+
+  .dashboard-nav {
+    flex-direction: column;
+    gap: var(--space-4);
+    text-align: center;
+  }
+
   .nav-content {
     flex-direction: column;
     gap: var(--space-4);
+  }
+
+  .user-profile {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .user-info {
+    align-items: center;
+  }
+
+  .flex-stack {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .card {
+    padding: var(--space-6);
+  }
+
+  /* Make buttons full width on very small screens for better accessibility */
+  @media (max-width: 480px) {
+    .btn {
+      width: 100%;
+    }
+
+    .input-group label {
+      text-align: center;
+    }
+
+    .input-group {
+      text-align: center;
+    }
+
+    .input-group input,
+    .input-group select,
+    .input-group textarea {
+      text-align: center;
+    }
   }
 }
