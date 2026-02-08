@@ -44,8 +44,8 @@ if (grantForm) {
 
         const formData = new FormData(grantForm);
         const url = grantId
-            ? `${CONFIG.API_BASE_URL}/org/grants/${grantId}/edit`
-            : `${CONFIG.API_BASE_URL}/org/grants/create`;
+            ? `${CONFIG.API_BASE_URL}/api/org/grants/${grantId}/edit`
+            : `${CONFIG.API_BASE_URL}/api/org/grants/create`;
 
         try {
             const submitBtn = document.getElementById('submitBtn');

@@ -48,7 +48,7 @@ if (loginForm) {
         const formData = new FormData(loginForm);
 
         try {
-            const response = await fetch(`${CONFIG.API_BASE_URL}/auth/login`, {
+            const response = await fetch(`${CONFIG.API_BASE_URL}/api/auth/login`, {
                 method: 'POST',
                 body: formData
             });
@@ -95,7 +95,7 @@ if (registerForm) {
         setBtnLoading(btn, true);
 
         try {
-            const response = await fetch(`${CONFIG.API_BASE_URL}/auth/register`, {
+            const response = await fetch(`${CONFIG.API_BASE_URL}/api/auth/register`, {
                 method: 'POST',
                 body: formData
             });
@@ -132,7 +132,7 @@ if (verifyForm) {
         const formData = new FormData(verifyForm);
 
         try {
-            const response = await fetch(`${CONFIG.API_BASE_URL}/auth/verify`, {
+            const response = await fetch(`${CONFIG.API_BASE_URL}/api/auth/verify`, {
                 method: 'POST',
                 body: formData
             });
@@ -167,7 +167,7 @@ if (resendForm) {
         formData.append('email', email);
 
         try {
-            const response = await fetch(`${CONFIG.API_BASE_URL}/auth/resend-otp`, {
+            const response = await fetch(`${CONFIG.API_BASE_URL}/api/auth/resend-otp`, {
                 method: 'POST',
                 body: formData
             });
@@ -191,7 +191,7 @@ if (forgotRequestForm) {
         setBtnLoading(btn, true);
         const formData = new FormData(forgotRequestForm);
         try {
-            const response = await fetch(`${CONFIG.API_BASE_URL}/auth/forgot-password/request`, {
+            const response = await fetch(`${CONFIG.API_BASE_URL}/api/auth/forgot-password/request`, {
                 method: 'POST',
                 body: formData
             });
@@ -219,7 +219,7 @@ if (forgotResetForm) {
         setBtnLoading(btn, true);
         const formData = new FormData(forgotResetForm);
         try {
-            const response = await fetch(`${CONFIG.API_BASE_URL}/auth/forgot-password/reset`, {
+            const response = await fetch(`${CONFIG.API_BASE_URL}/api/auth/forgot-password/reset`, {
                 method: 'POST',
                 body: formData
             });

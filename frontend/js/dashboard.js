@@ -192,7 +192,7 @@ function switchTab(tab) {
 async function softDelete(id) {
     if (!confirm('Move this grant to trash? It will be hidden from the public.')) return;
     try {
-        const res = await fetch(`${CONFIG.API_BASE_URL}/org/grants/${id}/delete`, {
+        const res = await fetch(`${CONFIG.API_BASE_URL}/api/org/grants/${id}/delete`, {
             method: 'POST',
             headers: getAuthHeaders()
         });
@@ -202,7 +202,7 @@ async function softDelete(id) {
 
 async function restoreGrant(id) {
     try {
-        const res = await fetch(`${CONFIG.API_BASE_URL}/org/grants/${id}/restore`, {
+        const res = await fetch(`${CONFIG.API_BASE_URL}/api/org/grants/${id}/restore`, {
             method: 'POST',
             headers: getAuthHeaders()
         });
@@ -213,7 +213,7 @@ async function restoreGrant(id) {
 async function permanentDelete(id) {
     if (!confirm('PERMANENT DELETE: This action cannot be undone. Are you absolutely certain?')) return;
     try {
-        const res = await fetch(`${CONFIG.API_BASE_URL}/org/grants/${id}/permanent-delete`, {
+        const res = await fetch(`${CONFIG.API_BASE_URL}/api/org/grants/${id}/permanent-delete`, {
             method: 'POST',
             headers: getAuthHeaders()
         });
