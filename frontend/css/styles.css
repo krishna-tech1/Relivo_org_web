@@ -330,6 +330,17 @@ h4 {
   /* Hide old logo class */
 }
 
+.brand-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.brand:hover .brand-logo {
+  transform: rotate(-5deg) scale(1.05);
+}
+
 /* ===== BUTTONS ===== */
 .btn {
   display: inline-flex;
