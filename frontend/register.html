@@ -12,11 +12,14 @@
 <body>
     <main class="page center" style="padding: var(--space-12) var(--space-12);">
         <header class="hero">
-            <img src="assets/logo.png" alt="Relivo Logo" class="logo" />
+            <div class="brand">
+                <i data-lucide="shield-check" class="brand-icon"></i>
+                <span class="brand-text">Relivo</span>
+            </div>
             <p>Empowering organizations to deliver impactful grants.</p>
         </header>
 
-        <section class="card" style="width: 100%; max-width: 650px;">
+        <section class="card auth-card max-w-xl">
             <form class="form" id="registerForm">
                 <div class="grid-2">
                     <div class="input-group">
@@ -67,17 +70,16 @@
                     </div>
                 </div>
 
-                <button class="btn primary" type="submit" style="margin-top: var(--space-4);">
+                <button class="btn primary mt-4" type="submit">
                     <i data-lucide="user-plus" aria-hidden="true"></i>
                     Register Organization
                 </button>
             </form>
 
-            <div class="auth-footer"
-                style="margin-top: var(--space-8); border-top: 1px solid var(--gray-200); padding-top: var(--space-6);">
-                <p class="muted" style="font-size: var(--text-sm); margin: 0;">
+            <div class="auth-footer">
+                <p class="muted text-sm m-0">
                     Already have a portal account?
-                    <a href="login.html" style="color: var(--accent-600); font-weight: var(--font-semibold);">
+                    <a href="login.html" class="link-accent">
                         Sign in here
                     </a>
                 </p>

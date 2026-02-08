@@ -14,7 +14,10 @@
         <nav class="dashboard-nav">
             <div class="nav-content">
                 <div class="user-profile">
-                    <img src="assets/logo.png" alt="Relivo" class="nav-logo" />
+                    <div class="brand">
+                        <i data-lucide="shield-check" class="brand-icon"></i>
+                        <span class="brand-text" style="font-size: var(--text-xl);">Relivo</span>
+                    </div>
                     <div class="user-avatar" id="avatarInitial">R</div>
                     <div class="user-info">
                         <h2 id="orgName">Loading...</h2>
@@ -51,27 +54,25 @@
                 </div>
                 <div class="stat-card">
                     <p class="stat-label">Active Listings</p>
-                    <div class="stat-value" id="activeGrants" style="color: var(--success-600);">0</div>
+                    <div class="stat-value success" id="activeGrants">0</div>
                 </div>
                 <div class="stat-card">
                     <p class="stat-label">Pending Review</p>
-                    <div class="stat-value" id="inactiveGrants" style="color: var(--warning-600);">0</div>
+                    <div class="stat-value warning" id="inactiveGrants">0</div>
                 </div>
             </div>
 
-            <div style="margin-top: var(--space-12);">
-                <div
-                    style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: var(--space-8); flex-wrap: wrap; gap: var(--space-4);">
+            <div class="mt-12">
+                <div class="dashboard-header">
                     <div>
-                        <h2 style="font-size: var(--text-2xl); margin-bottom: var(--space-1);">Your Grant Portfolio</h2>
-                        <p class="muted" style="font-size: var(--text-sm); margin: 0;">Manage and monitor all your grant
-                            publications.</p>
+                        <h2 class="section-title">Your Grant Portfolio</h2>
+                        <p class="muted text-sm m-0">Manage and monitor all your grant publications.</p>
                     </div>
                 </div>
                 <div id="grantsList" class="grants-grid">
                     <div class="empty-state">
                         <div class="empty-state-icon">
-                            <i data-lucide="loader" class="spin" style="width: 48px; height: 48px;"></i>
+                            <i data-lucide="loader" class="spin icon-48"></i>
                         </div>
                         <p class="empty-state-description">Synchronizing data with secure server...</p>
                     </div>
@@ -80,13 +81,12 @@
         </section>
 
         <section id="pendingDeletion" style="display: none;">
-            <div class="card"
-                style="text-align: center; margin-bottom: var(--space-10); border-color: var(--danger-200);">
-                <div class="empty-state-icon" style="margin-bottom: var(--space-4);">
-                    <i data-lucide="trash-2" style="width: 48px; height: 48px; color: var(--danger-500);"></i>
+            <div class="card card-danger mb-10">
+                <div class="empty-state-icon mb-4">
+                    <i data-lucide="trash-2" class="icon-48 text-danger-500"></i>
                 </div>
-                <h3 style="color: var(--primary-900); margin-bottom: var(--space-2);">Trash Bin</h3>
-                <p class="muted" style="margin: 0;">Grants here are hidden from the public but not yet permanently
+                <h3 class="text-primary-900 mb-2">Trash Bin</h3>
+                <p class="muted m-0">Grants here are hidden from the public but not yet permanently
                     removed. You can restore them or delete them forever.</p>
             </div>
             <div id="pendingGrantsList" class="grants-grid">
@@ -98,35 +98,29 @@
         <div id="grantModal" class="modal-overlay" style="display: none;">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 id="modalTitle" style="font-size: var(--text-2xl); color: var(--primary-900); margin: 0;">Grant
-                        Title</h2>
+                    <h2 id="modalTitle" class="section-title text-primary-900 m-0">Grant Title</h2>
                     <button onclick="closeModal()" class="modal-close" aria-label="Close modal">
                         <i data-lucide="x" aria-hidden="true"></i>
                     </button>
                 </div>
 
                 <div class="modal-body" id="modalBody">
-                    <p id="modalOrg" class="muted"
-                        style="margin-bottom: var(--space-8); font-weight: var(--font-semibold); font-size: var(--text-sm);">
+                    <p id="modalOrg" class="muted mb-8 font-semibold text-sm">
                         Organization Name</p>
 
-                    <div style="margin-bottom: var(--space-8);">
-                        <h4
-                            style="font-size: var(--text-xs); font-weight: var(--font-bold); color: var(--accent-600); margin-bottom: var(--space-3); text-transform: uppercase; letter-spacing: 0.05em;">
+                    <div class="mb-8">
+                        <h4 class="text-xs font-bold text-accent-600 mb-3 uppercase tracking-wider">
                             Full Description
                         </h4>
-                        <div id="modalDesc"
-                            style="line-height: var(--leading-relaxed); color: var(--primary-800); white-space: pre-wrap;">
+                        <div id="modalDesc" class="leading-relaxed text-primary-800" style="white-space: pre-wrap;">
                         </div>
                     </div>
 
-                    <div style="margin-bottom: var(--space-8);">
-                        <h4
-                            style="font-size: var(--text-xs); font-weight: var(--font-bold); color: var(--accent-600); margin-bottom: var(--space-3); text-transform: uppercase; letter-spacing: 0.05em;">
+                    <div class="mb-8">
+                        <h4 class="text-xs font-bold text-accent-600 mb-3 uppercase tracking-wider">
                             Eligibility Criteria
                         </h4>
-                        <div id="modalElig"
-                            style="line-height: var(--leading-relaxed); color: var(--primary-800); white-space: pre-wrap;">
+                        <div id="modalElig" class="leading-relaxed text-primary-800" style="white-space: pre-wrap;">
                         </div>
                     </div>
                 </div>

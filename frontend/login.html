@@ -12,11 +12,14 @@
 <body>
     <main class="page center">
         <header class="hero">
-            <img src="assets/logo.png" alt="Relivo Logo" class="logo" />
+            <div class="brand">
+                <i data-lucide="shield-check" class="brand-icon"></i>
+                <span class="brand-text">Relivo</span>
+            </div>
             <p>Organization Portal Login</p>
         </header>
 
-        <section class="card" style="width: 100%; max-width: 450px;">
+        <section class="card auth-card max-w-md">
             <form class="form" id="loginForm">
                 <div class="input-group">
                     <label for="email">Email Address</label>
@@ -36,17 +39,17 @@
                 </button>
             </form>
 
-            <div class="auth-footer"
-                style="margin-top: var(--space-8); border-top: 1px solid var(--gray-200); padding-top: var(--space-6);">
-                <p style="margin-bottom: var(--space-2); font-size: var(--text-sm);">
+            <div class="auth-footer mt-8"
+                style="border-top: 1px solid var(--gray-200); padding-top: var(--space-6);">
+                <p class="mb-2 text-sm">
                     <a href="forgot-password.html" class="muted"
                         style="color: var(--gray-600); font-weight: var(--font-medium);">
                         Forgot your password?
                     </a>
                 </p>
-                <p class="muted" style="font-size: var(--text-sm); margin: 0;">
+                <p class="muted text-sm m-0">
                     New to Relivo?
-                    <a href="register.html" style="color: var(--accent-600); font-weight: var(--font-semibold);">
+                    <a href="register.html" class="link-accent">
                         Create an account
                     </a>
                 </p>

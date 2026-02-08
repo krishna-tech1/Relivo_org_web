@@ -12,46 +12,47 @@
 <body>
     <main class="page center">
         <header class="hero">
-            <img src="assets/logo.png" alt="Relivo Logo" class="logo" style="max-width: 280px;" />
+            <div class="brand">
+                <i data-lucide="shield-check" class="brand-icon"></i>
+                <span class="brand-text">Relivo</span>
+            </div>
             <p>Empowering organizations to manage, publish, and track humanitarian grants with ultimate security.</p>
         </header>
 
-        <section class="card" style="width: 100%; max-width: 550px; text-align: center;">
-            <div style="display: flex; flex-direction: column; gap: var(--space-6);">
-                <h2 style="font-size: var(--text-2xl); color: var(--primary-900); margin-bottom: 0;">Gateway Access</h2>
+        <section class="card auth-card max-w-lg">
+            <div class="stack-6">
+                <h2 class="section-title-sm">Gateway Access</h2>
 
-                <div class="flex-stack" style="justify-content: center;">
-                    <a class="btn primary" href="login.html" style="flex: 1;" aria-label="Login to portal">
+                <div class="flex-stack flex-center">
+                    <a class="btn primary flex-1" href="login.html" aria-label="Login to portal">
                         <i data-lucide="log-in" aria-hidden="true"></i>
                         Portal Login
                     </a>
-                    <a class="btn secondary" href="register.html" style="flex: 1;"
+                    <a class="btn secondary flex-1" href="register.html"
                         aria-label="Register new organization">
                         <i data-lucide="user-plus" aria-hidden="true"></i>
                         Register
                     </a>
                 </div>
 
-                <div class="custom-alert alert-info" style="text-align: left; margin-bottom: 0;">
-                    <i data-lucide="info" style="flex-shrink: 0; width: 20px; height: 20px;" aria-hidden="true"></i>
-                    <p style="margin: 0; line-height: var(--leading-relaxed);">
+                <div class="custom-alert alert-info alert-compact">
+                    <i data-lucide="info" class="icon-20" aria-hidden="true"></i>
+                    <p class="m-0 leading-relaxed">
                         This portal is exclusively for verified organizations. If you are a grant applicant, please
                         visit our main platform.
                     </p>
                 </div>
 
-                <p class="muted" style="font-size: var(--text-sm); margin: 0;">
+                <p class="muted text-sm m-0">
                     Institutional Support:
-                    <a href="mailto:support@relivo.org"
-                        style="color: var(--accent-600); font-weight: var(--font-semibold);">
+                    <a href="mailto:support@relivo.org" class="link-accent">
                         support@relivo.org
                     </a>
                 </p>
             </div>
         </section>
 
-        <footer
-            style="margin-top: var(--space-16); color: var(--gray-500); font-size: var(--text-xs); font-weight: var(--font-medium);">
+        <footer class="page-footer">
             &copy; 2026 Relivo Global Aid Network • All Rights Reserved
         </footer>
     </main>
