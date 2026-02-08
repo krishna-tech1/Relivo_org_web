@@ -116,28 +116,57 @@
                 </div>
 
                 <div class="modal-body" id="modalBody">
-                    <p id="modalOrg" class="muted mb-8 font-semibold text-sm">
-                        Organization Name</p>
+                    <div class="modal-meta-banner mb-8">
+                        <div id="modalStatusBadge"></div>
+                        <p id="modalOrg" class="muted font-bold text-sm m-0">Organization Name</p>
+                    </div>
 
-                    <div class="mb-8">
-                        <h4 class="text-xs font-bold text-accent-600 mb-3 uppercase tracking-wider">
-                            Full Description
-                        </h4>
-                        <div id="modalDesc" class="leading-relaxed text-primary-800" style="white-space: pre-wrap;">
+                    <div class="modal-stats-grid mb-8">
+                        <div class="modal-stat-box">
+                            <i data-lucide="banknote"></i>
+                            <div>
+                                <label>Amount</label>
+                                <span id="modalAmount">Not specified</span>
+                            </div>
+                        </div>
+                        <div class="modal-stat-box">
+                            <i data-lucide="calendar"></i>
+                            <div>
+                                <label>Deadline</label>
+                                <span id="modalDeadline">Rolling Basis</span>
+                            </div>
+                        </div>
+                        <div class="modal-stat-box">
+                            <i data-lucide="map-pin"></i>
+                            <div>
+                                <label>Target Region</label>
+                                <span id="modalRegion">Global</span>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="mb-8">
-                        <h4 class="text-xs font-bold text-accent-600 mb-3 uppercase tracking-wider">
-                            Eligibility Criteria
-                        </h4>
-                        <div id="modalElig" class="leading-relaxed text-primary-800" style="white-space: pre-wrap;">
+                    <div class="modal-section mb-8">
+                        <div class="section-header">
+                            <i data-lucide="align-left"></i>
+                            <h4>Full Description</h4>
                         </div>
+                        <div id="modalDesc" class="section-content"></div>
+                    </div>
+
+                    <div class="modal-section mb-8">
+                        <div class="section-header">
+                            <i data-lucide="shield-check"></i>
+                            <h4>Eligibility Criteria</h4>
+                        </div>
+                        <div id="modalElig" class="section-content"></div>
                     </div>
                 </div>
 
                 <div class="modal-footer">
-                    <button onclick="closeModal()" class="btn secondary">Close</button>
+                    <a id="modalApplyBtn" href="#" target="_blank" class="btn primary">
+                        <i data-lucide="external-link"></i> Visit Application Portal
+                    </a>
+                    <button onclick="closeModal()" class="btn secondary">Close View</button>
                 </div>
             </div>
         </div>

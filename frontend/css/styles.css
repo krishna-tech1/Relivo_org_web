@@ -883,6 +883,102 @@ input:focus {
   justify-content: center;
 }
 
+/* Modal Content Enhancements */
+.modal-meta-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  background: var(--primary-50);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+}
+
+.modal-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.modal-stat-box {
+  background: white;
+  border: 1px solid var(--primary-100);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  box-shadow: var(--shadow-sm);
+}
+
+.modal-stat-box i {
+  width: 24px;
+  height: 24px;
+  color: var(--accent-600);
+  background: var(--accent-50);
+  padding: 4px;
+  border-radius: var(--radius-md);
+}
+
+.modal-stat-box label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--primary-400);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
+.modal-stat-box span {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--primary-800);
+}
+
+.modal-section {
+  border: 1px solid var(--primary-100);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.modal-section .section-header {
+  background: var(--primary-50);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--primary-100);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.modal-section .section-header h4 {
+  margin: 0;
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  color: var(--primary-600);
+  letter-spacing: 0.05em;
+}
+
+.modal-section .section-header i {
+  width: 16px;
+  height: 16px;
+  color: var(--accent-600);
+}
+
+.modal-section .section-content {
+  padding: var(--space-6);
+  white-space: pre-wrap;
+  line-height: 1.8;
+  color: var(--primary-700);
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 640px) {
+  .modal-stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ===== ALERTS ===== */
 .custom-alert {
   padding: 1rem;

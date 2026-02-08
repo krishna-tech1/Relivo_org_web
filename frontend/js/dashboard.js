@@ -246,13 +246,38 @@ function viewGrantDetails(id) {
     const grant = allGrants.find(g => g.id === id);
     if (!grant) return;
 
+    // Header & Meta
     document.getElementById('modalTitle').textContent = grant.title;
     document.getElementById('modalOrg').textContent = grant.organizer || currentOrg.name;
-    document.getElementById('modalDesc').textContent = grant.description || 'No description provided.';
-    document.getElementById('modalElig').textContent = grant.eligibility || 'No specific eligibility criteria listed.';
+
+    const status = grant.status || 'LIVE';
+    const statusBadge = document.getElementById('modalStatusBadge');
+    if (status === 'LIVE' || status === 'APPROVED') {
+        statusBadge.innerHTML = '<span class="badge badge-success">Verified & Active</span>';
+    } else {
+        statusBadge.innerHTML = `<span class="badge badge-warning">${status}</span>`;
+    }
+
+    // Stat Grid
+    document.getElementById('modalAmount').textContent = grant.amount || 'Flexible Funding';
+    document.getElementById('modalDeadline').textContent = grant.deadline ? new Date(grant.deadline).toLocaleDateString() : 'Open / Rolling';
+    document.getElementById('modalRegion').textContent = grant.refugee_country || 'Global Relief';
+
+    // Content Sections
+    document.getElementById('modalDesc').textContent = grant.description || 'No detailed description provided.';
+    document.getElementById('modalElig').textContent = grant.eligibility || 'Standard organizational eligibility applies.';
+
+    // Footer Action
+    const applyBtn = document.getElementById('modalApplyBtn');
+    if (grant.apply_url) {
+        applyBtn.href = grant.apply_url;
+        applyBtn.style.display = 'inline-flex';
+    } else {
+        applyBtn.style.display = 'none';
+    }
 
     document.getElementById('grantModal').style.display = 'flex';
-    document.body.style.overflow = 'hidden'; // Prevent scroll
+    document.body.style.overflow = 'hidden';
     if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
