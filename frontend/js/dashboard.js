@@ -155,10 +155,13 @@ function createGrantCard(grant, isPending) {
         <div class="grant-title" style="font-weight: 800; color: var(--primary-900);">${grant.title}</div>
         <div class="grant-meta" style="margin-top: var(--space-2); margin-bottom: var(--space-4);">
             <div style="display: flex; flex-direction: column; gap: 4px;">
-                <span style="display: flex; align-items: center; gap: 8px;">
-                    <i data-lucide="building" style="width: 14px; height: 14px; color: var(--accent-500);"></i>
-                    ${grant.organizer || 'Internal Org'}
-                </span>
+                <div style="display: flex; gap: 12px; align-items: center;">
+                    <span style="display: flex; align-items: center; gap: 8px;">
+                        <i data-lucide="building" style="width: 14px; height: 14px; color: var(--accent-500);"></i>
+                        ${grant.organizer || 'Internal Org'}
+                    </span>
+                    ${grant.category ? `<span class="badge" style="background: var(--gray-100); color: var(--gray-700); font-size: 0.75rem; padding: 2px 8px;">${grant.category}</span>` : ''}
+                </div>
                 <span style="display: flex; align-items: center; gap: 8px;">
                     <i data-lucide="globe" style="width: 14px; height: 14px; color: var(--primary-400);"></i>
                     Global Access

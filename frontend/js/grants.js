@@ -19,11 +19,21 @@ async function loadGrant() {
                 // Set values using the name attribute
                 form.querySelector('[name="title"]').value = grant.title || '';
                 form.querySelector('[name="organizer"]').value = grant.organizer || '';
-                form.querySelector('[name="category"]').value = grant.category || 'General';
+                form.querySelector('[name="category"]').value = (grant.category || 'general').toLowerCase(); // Handle case
                 form.querySelector('[name="apply_url"]').value = grant.apply_url || '';
+
                 if (grant.deadline) {
-                    form.querySelector('[name="deadline"]').value = grant.deadline.split('T')[0];
+                    const dateVal = grant.deadline.split('T')[0];
+                    // Check if date is suspiciously old (e.g. 1970 for null dates from some DBs)
+                    if (dateVal.startsWith('1970') || dateVal.startsWith('0001')) {
+                        form.querySelector('[name="deadline"]').value = '';
+                    } else {
+                        form.querySelector('[name="deadline"]').value = dateVal;
+                    }
+                } else {
+                    form.querySelector('[name="deadline"]').value = '';
                 }
+
                 form.querySelector('[name="refugee_country"]').value = grant.refugee_country || '';
                 form.querySelector('[name="amount"]').value = grant.amount || '';
                 form.querySelector('[name="description"]').value = grant.description || '';
