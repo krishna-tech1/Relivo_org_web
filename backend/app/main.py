@@ -66,7 +66,8 @@ def dashboard_data(
             "amount": g.amount,
             "deadline": g.deadline,
             "apply_url": g.apply_url,
-            "refugee_country": g.refugee_country
+            "refugee_country": g.refugee_country,
+            "category": g.category
         } for g in grants_list],
         "total_grants": total_visible,
         "active_grants": active_grants,

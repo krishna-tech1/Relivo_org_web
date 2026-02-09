@@ -20,12 +20,14 @@ def _parse_deadline(value: str | None):
 @router.post("/create")
 def create_grant(
     title: str = Form(...),
+    organizer: str | None = Form(None),
     apply_url: str = Form(...),
     deadline: str | None = Form(None),
     description: str | None = Form(None),
     eligibility: str | None = Form(None),
     refugee_country: str | None = Form(None),
     amount: str | None = Form(None),
+    category: str | None = Form(None),
     db: Session = Depends(get_db),
     org: models.Organization = Depends(get_current_org)
 ):
@@ -34,13 +36,14 @@ def create_grant(
 
     grant = models.Grant(
         title=title,
-        organizer=org.name,
+        organizer=organizer if organizer else org.name,
         apply_url=apply_url,
         deadline=_parse_deadline(deadline),
         description=description,
         eligibility=eligibility,
         refugee_country=refugee_country,
         amount=amount,
+        category=category,
         source="manual",
         is_verified=True,
         is_active=True,
@@ -60,12 +63,14 @@ def create_grant(
 def edit_grant(
     grant_id: int,
     title: str = Form(...),
+    organizer: str | None = Form(None),
     apply_url: str = Form(...),
     deadline: str | None = Form(None),
     description: str | None = Form(None),
     eligibility: str | None = Form(None),
     refugee_country: str | None = Form(None),
     amount: str | None = Form(None),
+    category: str | None = Form(None),
     db: Session = Depends(get_db),
     org: models.Organization = Depends(get_current_org)
 ):
@@ -74,12 +79,15 @@ def edit_grant(
         raise HTTPException(status_code=404, detail="Grant not found")
 
     grant.title = title
+    if organizer:
+        grant.organizer = organizer
     grant.apply_url = apply_url
     grant.deadline = _parse_deadline(deadline)
     grant.description = description
     grant.eligibility = eligibility
     grant.refugee_country = refugee_country
     grant.amount = amount
+    grant.category = category
 
     db.commit()
 

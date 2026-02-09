@@ -34,16 +34,16 @@
                 <input type="hidden" name="grant_id" id="grantId" />
 
                 <div class="input-group">
-                    <label for="grant-title">Grant Title</label>
-                    <input type="text" id="grant-title" name="title"
-                        placeholder="e.g., Refugee Emergency Education Support" required />
+                    <label for="grant-title">Grant Title (Max 20 chars)</label>
+                    <input type="text" id="grant-title" name="title" maxlength="20"
+                        placeholder="e.g., Education Support" required />
                 </div>
 
                 <div class="grid-2">
                     <div class="input-group">
-                        <label for="organizer">Organizer / Department</label>
-                        <input type="text" id="organizer" name="organizer" placeholder="e.g., Dept of Social Welfare"
-                            required />
+                        <label for="organizer">Organizer (Max 20 chars)</label>
+                        <input type="text" id="organizer" name="organizer" maxlength="20"
+                            placeholder="e.g., Social Dept" required />
                     </div>
                     <div class="input-group">
                         <label for="category">Category</label>
@@ -59,20 +59,21 @@
 
                 <div class="grid-2">
                     <div class="input-group">
-                        <label for="refugee-country">Primary Beneficiary Country</label>
-                        <input type="text" id="refugee-country" name="refugee_country"
-                            placeholder="e.g., Yemen, Syria, etc." required />
+                        <label for="refugee-country">Country (Max 20 chars)</label>
+                        <input type="text" id="refugee-country" name="refugee_country" maxlength="20"
+                            placeholder="e.g., Yemen" required />
                     </div>
                     <div class="input-group">
-                        <label for="amount">Grant Amount</label>
-                        <input type="text" id="amount" name="amount" placeholder="e.g., $10,000" />
+                        <label for="amount">Amount (Max 15 chars)</label>
+                        <input type="text" id="amount" name="amount" maxlength="15" placeholder="e.g., $10,000"
+                            required />
                     </div>
                 </div>
 
                 <div class="input-group">
-                    <label for="description">Brief Description</label>
-                    <textarea id="description" name="description" rows="4"
-                        placeholder="Detailed objective and scope of this grant..." required></textarea>
+                    <label for="description">Brief Description (Max 250 chars)</label>
+                    <textarea id="description" name="description" rows="4" maxlength="250"
+                        placeholder="Detailed objective and scope..." required></textarea>
                 </div>
 
                 <div class="grid-2">
@@ -89,8 +90,8 @@
                 </div>
 
                 <div class="input-group">
-                    <label for="eligibility">Eligibility Criteria</label>
-                    <textarea id="eligibility" name="eligibility" rows="3"
+                    <label for="eligibility">Eligibility Criteria (Max 250 chars)</label>
+                    <textarea id="eligibility" name="eligibility" rows="3" maxlength="250"
                         placeholder="Who is eligible to apply?"></textarea>
                 </div>
 

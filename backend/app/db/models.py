@@ -46,6 +46,7 @@ class Grant(Base):
     created_by_type = Column(String(50), nullable=True)
     created_by_id = Column(Integer, nullable=True)
     status = Column(String(50), nullable=True)
+    category = Column(String(100), nullable=True)
 
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())

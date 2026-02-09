@@ -148,27 +148,50 @@ function createGrantCard(grant, isPending) {
         `;
     }
 
+    const amountDisplay = grant.amount || 'Unspecified Funding';
+    const deadlineDisplay = grant.deadline
+        ? `Due: ${new Date(grant.deadline).toLocaleDateString()}`
+        : 'Open / Permanent';
+    const locationDisplay = grant.refugee_country || 'Global Access';
+
     div.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--space-4);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
             ${statusBadge}
+            ${grant.category ? `<span class="badge badge-neutral">${grant.category}</span>` : ''}
         </div>
-        <div class="grant-title" style="font-weight: 800; color: var(--primary-900);">${grant.title}</div>
-        <div class="grant-meta" style="margin-top: var(--space-2); margin-bottom: var(--space-4);">
-            <div style="display: flex; flex-direction: column; gap: 4px;">
-                <div style="display: flex; gap: 12px; align-items: center;">
-                    <span style="display: flex; align-items: center; gap: 8px;">
-                        <i data-lucide="building" style="width: 14px; height: 14px; color: var(--accent-500);"></i>
-                        ${grant.organizer || 'Internal Org'}
-                    </span>
-                    ${grant.category ? `<span class="badge" style="background: var(--gray-100); color: var(--gray-700); font-size: 0.75rem; padding: 2px 8px;">${grant.category}</span>` : ''}
-                </div>
-                <span style="display: flex; align-items: center; gap: 8px;">
-                    <i data-lucide="globe" style="width: 14px; height: 14px; color: var(--primary-400);"></i>
-                    Global Access
+        
+        <h3 class="grant-title">${grant.title}</h3>
+        
+        <div class="grant-meta">
+            <div class="grant-meta-row">
+                <span style="display: flex; align-items: center; gap: 8px; font-weight: 600; color: var(--primary-900);">
+                    <i data-lucide="building" style="width: 16px; height: 16px; color: var(--accent-500);"></i>
+                    ${grant.organizer || 'Internal Org'}
+                </span>
+                <span style="display: flex; align-items: center; gap: 6px; font-size: 0.75rem;">
+                    <i data-lucide="map-pin" style="width: 14px; height: 14px; color: var(--primary-400);"></i>
+                    ${locationDisplay}
+                </span>
+            </div>
+            
+            <div style="height: 1px; background: var(--primary-200); margin: 4px 0;"></div>
+            
+            <div class="grant-meta-row">
+                <span style="display: flex; align-items: center; gap: 6px; color: var(--success-600); font-weight: 700;">
+                    <i data-lucide="banknote" style="width: 16px; height: 16px;"></i>
+                    ${amountDisplay}
+                </span>
+                <span style="display: flex; align-items: center; gap: 6px; color: var(--warning-600); font-weight: 600; font-size: 0.75rem;">
+                    <i data-lucide="calendar" style="width: 14px; height: 14px;"></i>
+                    ${deadlineDisplay}
                 </span>
             </div>
         </div>
-        <p class="grant-desc" style="color: var(--primary-500); line-height: 1.6;">${grant.description ? grant.description.substring(0, 100) + '...' : 'No description provided.'}</p>
+        
+        <p class="grant-desc" style="-webkit-line-clamp: 3; -webkit-box-orient: vertical; display: -webkit-box; overflow: hidden;">
+            ${grant.description ? grant.description : 'No description provided.'}
+        </p>
+        
         ${footerHtml}
     `;
     return div;

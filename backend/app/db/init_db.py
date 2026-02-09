@@ -36,3 +36,5 @@ def ensure_schema():
                 connection.execute(text("ALTER TABLE grants ADD COLUMN created_by_id INTEGER"))
             if "status" not in grant_columns:
                 connection.execute(text("ALTER TABLE grants ADD COLUMN status VARCHAR(50)"))
+            if "category" not in grant_columns:
+                connection.execute(text("ALTER TABLE grants ADD COLUMN category VARCHAR(100)"))

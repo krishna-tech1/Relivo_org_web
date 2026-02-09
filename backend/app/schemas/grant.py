@@ -11,6 +11,7 @@ class GrantCreate(BaseModel):
     eligibility: Optional[str] = None
     refugee_country: Optional[str] = None
     amount: Optional[str] = None
+    category: Optional[str] = None
 
 class GrantUpdate(BaseModel):
     title: Optional[str] = None
@@ -21,3 +22,4 @@ class GrantUpdate(BaseModel):
     eligibility: Optional[str] = None
     refugee_country: Optional[str] = None
     amount: Optional[str] = None
+    category: Optional[str] = None
