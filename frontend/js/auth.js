@@ -81,12 +81,12 @@ if (loginForm) {
                 }
             } else {
                 const error = await response.json();
-                alert(error.detail || 'Login failed. Please check your credentials.');
+                Toast.show(error.detail || 'Login failed. Please check your credentials.', 'error');
                 setBtnLoading(btn, false);
             }
         } catch (err) {
             console.error(err);
-            alert('A network error occurred. Please try again.');
+            Toast.show('A network error occurred. Please try again.', 'error');
             setBtnLoading(btn, false);
         }
     });
@@ -104,7 +104,7 @@ if (registerForm) {
         const confirmPassword = document.getElementById('reg-confirm-password').value;
 
         if (password !== confirmPassword) {
-            alert('Security Error: New passwords do not match.');
+            Toast.show('Security Error: New passwords do not match.', 'error');
             return;
         }
 
@@ -121,12 +121,12 @@ if (registerForm) {
                 window.location.href = `verify.html?email=${email}`;
             } else {
                 const error = await response.json();
-                alert(error.detail || 'Registration failed. Email might already be registered.');
+                Toast.show(error.detail || 'Registration failed. Email might already be registered.', 'error');
                 setBtnLoading(btn, false);
             }
         } catch (err) {
             console.error('Registration Error:', err);
-            alert('A network error occurred during registration.');
+            Toast.show('A network error occurred during registration.', 'error');
             setBtnLoading(btn, false);
         }
     });
@@ -157,7 +157,7 @@ if (verifyForm) {
                 window.location.href = 'verified.html';
             } else {
                 const error = await response.json();
-                alert(error.detail || 'Verification failed. Code may be incorrect or expired.');
+                Toast.show(error.detail || 'Verification failed. Code may be incorrect or expired.', 'error');
                 setBtnLoading(btn, false);
             }
         } catch (err) {
@@ -189,7 +189,7 @@ if (resendForm) {
             });
 
             if (response.ok) {
-                alert('Success: A new verification code has been dispatched.');
+                Toast.show('Success: A new verification code has been dispatched.', 'success');
             }
             setBtnLoading(btn, false);
         } catch (err) {
@@ -217,7 +217,7 @@ if (forgotRequestForm) {
                 document.getElementById('resetEmail').value = formData.get('email');
                 if (typeof lucide !== 'undefined') lucide.createIcons();
             } else {
-                alert(data.detail || 'Service unavailable.');
+                Toast.show(data.detail || 'Service unavailable.', 'error');
             }
             setBtnLoading(btn, false);
         } catch (err) {
@@ -243,7 +243,7 @@ if (forgotResetForm) {
                 window.location.href = 'login.html?reset=success';
             } else {
                 const data = await response.json();
-                alert(data.detail || 'Reset failed.');
+                Toast.show(data.detail || 'Reset failed.', 'error');
                 setBtnLoading(btn, false);
             }
         } catch (err) {

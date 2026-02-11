@@ -59,6 +59,19 @@ if (grantForm) {
             ? `${CONFIG.API_BASE_URL}/api/org/grants/${grantId}/edit`
             : `${CONFIG.API_BASE_URL}/api/org/grants/create`;
 
+        // Validate deadline
+        const deadlineVal = formData.get('deadline');
+        if (deadlineVal) {
+            const selectedDate = new Date(deadlineVal);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // Reset time part for accurate comparison
+
+            if (selectedDate < today) {
+                Toast.show('Deadline cannot be in the past.', 'error');
+                return;
+            }
+        }
+
         try {
             const submitBtn = document.getElementById('submitBtn');
             const originalText = submitBtn.innerHTML;
@@ -76,16 +89,23 @@ if (grantForm) {
                 window.location.href = 'dashboard.html';
             } else {
                 const error = await response.json();
-                alert(error.detail || 'Failed to save publication. Please verify all fields.');
+                Toast.show(error.detail || 'Failed to save publication. Please verify all fields.', 'error');
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
                 if (typeof lucide !== 'undefined') lucide.createIcons();
             }
         } catch (err) {
             console.error(err);
-            alert('A network error occurred. Please check your connection.');
+            Toast.show('A network error occurred. Please check your connection.', 'error');
         }
     });
 }
 
 loadGrant();
+
+// Set minimum date for deadline to today
+const deadlineInput = document.getElementById('deadline');
+if (deadlineInput) {
+    const today = new Date().toISOString().split('T')[0];
+    deadlineInput.min = today;
+}
